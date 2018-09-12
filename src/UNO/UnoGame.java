@@ -57,7 +57,8 @@ private Player player;
 
     }
 
-    public void addCardsToDiscardFromPlayer(Card card, Player player){
+//    public void addCardsToDiscardFromPlayer(Card card, Player player){
+    public void addCardsToDiscardFromPlayer(int playerNumber){
         if(discardPile.numberOfCardsInTheFaceUpPile()>100){
             for(int i=0; i<100; i++){
                 unoDeck.addCardToDeck(discardPile.getBottomCard());
@@ -65,11 +66,12 @@ private Player player;
 
         }
         //for the top card on discard pile
-        card.getColour();
+//        card.getColour();
             //if the colour on playerhandcard == colour on top discard card
             // or type on player hand == type on top discard card
         //play card
-        discardPile.placeCardOnFaceUpPile(player.reduceCardsInPlayerHands());
+        discardPile.placeCardOnFaceUpPile(players.get(playerNumber).reduceCardsInPlayerHands());
+//        discardPile.placeCardOnFaceUpPile(player.reduceCardsInPlayerHands());
         //else if the colour on playerhand is black
         //play card
         // else add a card to player hand from deck
