@@ -12,6 +12,14 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestPlayer {
 
+    //My new test
+//    @Test
+//    public void minusCardInPlayersHand(){
+//        Player player = new Player();
+//        player.reduceCardsInPlayerHands();
+//        assertEquals(0, player.getNumberOfCards());
+//    }
+
     @Test
     public void createPlayer() {
         Player player = new Player();
