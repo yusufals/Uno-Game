@@ -1,8 +1,12 @@
 package UNO;
 
+/**
+ * Sarah has worked on this class
+ */
 public class Card {
-    CardColour colour;
-    CardType cardType;
+    //Changed to private
+    private CardColour colour;
+    private CardType cardType;
 
 
     public Card(CardColour colour, CardType cardType){

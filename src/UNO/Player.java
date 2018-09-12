@@ -1,8 +1,11 @@
 package UNO;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
+/**
+ * Marin has worked on this class
+ */
 public class Player {
     private List<Card> playerHand = new ArrayList<>();
 
@@ -31,11 +34,23 @@ public class Player {
         return lastCard;
     }
 
+    //method added to get the card from selected position
+    public Card getSelectedCard(int position){
+        Card selectedCard= playerHand.get(position);
+//        playerHand.remove(position);
+        return selectedCard;
+    }
+    public Card removeSelected(int position){
+        Card selectedCard = playerHand.get(position);
+        playerHand.remove(position);
+        return selectedCard;
+    }
 
 
     public List<Card> viewCardsInPlayerHand() {
         return playerHand;
     }
+
 
 }
 
