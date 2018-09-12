@@ -3,6 +3,9 @@ package UNO;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Marin has worked on this class
+ */
 public class Player {
     private List<Card> playerHand = new ArrayList<>();
 

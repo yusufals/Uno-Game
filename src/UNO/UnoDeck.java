@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by yusufals on 11/09/2018.
+ * Abdullah has worked on this class
  */
 public class UnoDeck {
 

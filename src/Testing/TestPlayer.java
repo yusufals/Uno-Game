@@ -1,15 +1,17 @@
 
 package Testing;
 
+/**
+ * Marin has worked on this class
+ */
+
 import Exceptions.NoCardRemainingException;
 import UNO.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by yusufals on 11/09/2018.
- */
+
 public class TestPlayer {
 
     @Test

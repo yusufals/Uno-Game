@@ -5,6 +5,9 @@ import Exceptions.NoCardRemainingException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sarah has worked on this class
+ */
 public class UnoGame {
 private DiscardPile discardPile;
 private UnoDeck unoDeck;
@@ -58,6 +61,7 @@ private Player player;
     }
 
 //    public void addCardsToDiscardFromPlayer(Card card, Player player){
+    //Abdullah to work on this method
     public void addCardsToDiscardFromPlayer(int playerNumber){
         if(discardPile.numberOfCardsInTheFaceUpPile()>100){
             for(int i=0; i<100; i++){
@@ -78,6 +82,8 @@ private Player player;
 
 
     }
+
+
 
     public int getSizeOfDiscardPile(){
         return discardPile.numberOfCardsInTheFaceUpPile();

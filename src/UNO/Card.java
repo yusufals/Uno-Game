@@ -1,5 +1,8 @@
 package UNO;
 
+/**
+ * Sarah has worked on this class
+ */
 public class Card {
     CardColour colour;
     CardType cardType;

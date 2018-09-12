@@ -1,7 +1,7 @@
 package UNO;
 
 /**
- * Created by yusufals on 11/09/2018.
+ * Abdullah has worked on this class
  */
 public interface CardType {
 }

@@ -1,5 +1,8 @@
 package Testing;
 
+/**
+ * Sarah has worked on this test class
+ */
 import Exceptions.NoCardRemainingException;
 import UNO.Player;
 import UNO.UnoGame;
@@ -7,11 +10,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by yusufals on 12/09/2018.
- */
-public class TestGame {
 
+public class TestGame {
 
     @Test
     public void testAddPlayer() {
