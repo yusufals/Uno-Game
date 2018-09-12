@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class DiscardPile {
 
-    private List<Card> faceUpPile = new ArrayList<>();
+    private List<Card> discardPile = new ArrayList<>();
 
 
     public DiscardPile() {
@@ -18,8 +18,8 @@ public class DiscardPile {
      * Marin
      * @return
      */
-    public int numberOfCardsInTheFaceUpPile() {
-        return faceUpPile.size();
+    public int totalInTheFaceUpPile() {
+        return discardPile.size();
 
     }
 
@@ -29,15 +29,15 @@ public class DiscardPile {
      * @param card
      */
     public void placeCardOnFaceUpPile(Card card) {
-        faceUpPile.add(card);
+        discardPile.add(card);
     }
 
     /**
      * Abdullah
      * @return
      */
-    public List<Card> viewFaceUpPile() {
-        return faceUpPile;
+    public List<Card> viewDiscardPile() {
+        return discardPile;
     }
 
     /**
@@ -45,8 +45,8 @@ public class DiscardPile {
      * @return
      */
     public Card showTopCard() {
-        int topCard = faceUpPile.size() - 1;
-        return faceUpPile.get(topCard);
+        int topCard = discardPile.size() - 1;
+        return discardPile.get(topCard);
     }
 
     /**
@@ -54,7 +54,7 @@ public class DiscardPile {
      * @return
      */
     public Card getBottomCard() {
-        return faceUpPile.remove(0);
+        return discardPile.remove(0);
     }
 
 

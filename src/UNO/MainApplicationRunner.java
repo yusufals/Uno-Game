@@ -1,13 +1,14 @@
 package UNO;
 
 import Arcade.ArcadeMachine;
+import Exceptions.NoCardRemainingException;
 
 import java.io.IOException;
 
 
 public class MainApplicationRunner {
 
-    public static void main(String [ ] args) throws IOException {
+    public static void main(String [ ] args) throws IOException, NoCardRemainingException {
 
         ArcadeMachine firstArcade  = new ArcadeMachine();
         firstArcade.run();
