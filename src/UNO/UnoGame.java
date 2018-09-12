@@ -22,6 +22,11 @@ private Player player;
 
     }
 
+    /**
+     * This method distributes cards to players and throws an exception when there are no more cards left from the deck.
+     * @throws NoCardRemainingException
+     */
+
     public void giveCardsToPlayers() throws NoCardRemainingException{
         //for each player in the playerslist
         for(int i=0; i<players.size(); i++){
@@ -36,25 +41,49 @@ private Player player;
         }
     }
 
+    /**
+     * This method creates a new player
+     * @param player
+     */
     public void addPlayer(Player player) {
 
         players.add(player);
     }
 
+    /**
+     * This method counts the total number of players
+     * @return number of players playing
+     */
     public int getPlayerCount(){
 
         return players.size();
     }
 
+    /**
+     * This method gets the number of cards in the players hand and gets the number of total cards
+     * @param playerLocation
+     * @return
+     */
+
     public int getPlayerHandSize(int playerLocation){
         return players.get(playerLocation).getNumberOfCards();
 
     }
+
+    /**
+     * This method finds the total number of cards in the deck
+     * @return
+     */
     public int getDeckSize(){
         return unoDeck.getNumberOfCards();
 
     }
 
+    /**
+     *
+     * @param playerLocation
+     * @return
+     */
     public List<Card> getTheCardsPlayer(int playerLocation){
         return players.get(playerLocation).viewCardsInPlayerHand();
 
