@@ -17,6 +17,8 @@ public class UnoGame {
     private List<Player> players = new ArrayList<>();
     boolean isCardPlayed;
     private PlayerStorage playerStorage;
+    private int currentPlayer;
+    private Card visibleCard;
 
     public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
@@ -55,7 +57,7 @@ public class UnoGame {
         }
         players.add(playerStorage.getFirstPlayer());
         //illegal exception for more than 10 players
-        //if players in database is zero then dont let them add any more players
+        //if players in database is zero then don't let them add any more players
 
     }
 
@@ -121,8 +123,12 @@ public class UnoGame {
      */
     public boolean addCardsToDiscardPileFromPlayer(int playerNumber, int cardPosition) {
         //this next line below removes the card due to getSelectedCard method
-        //maybe create a removeselected card method separately
+        //maybe create a remove selected card method separately
+        this.currentPlayer=playerNumber;
+        this.visibleCard = discardPile.showTopCard();
+
         Card card = players.get(playerNumber).getSelectedCard(cardPosition);
+
         if (discardPile.showTopCard().getColour() == card.getColour() ||
                 discardPile.showTopCard().getNumber() == card.getNumber()) {
             discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
@@ -167,5 +173,13 @@ public class UnoGame {
 
     public Card getTopDiscard(){
         return discardPile.showTopCard();
+    }
+
+    public UnoDeck getUnoDeck() {
+        return unoDeck;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
     }
 }
