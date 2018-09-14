@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class PlayerStorage {
 
-    List<Player> playerDatabase = new ArrayList<Player>();
+    private List<Player> playerDatabase = new ArrayList<Player>();
 
 
 
@@ -41,6 +41,15 @@ public class PlayerStorage {
 
 
 
+    public Player getFirstPlayer(){
+        Player x= playerDatabase.get(0);
+        playerDatabase.remove(0);
+        return x;
+    }
+
+    public int getSizeOfDatabase(){
+        return playerDatabase.size();
+    }
     }
 
 

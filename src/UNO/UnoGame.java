@@ -1,5 +1,6 @@
 package UNO;
 
+import Exceptions.MaxPlayerReachedException;
 import Exceptions.NoCardRemainingException;
 
 import java.util.ArrayList;
@@ -14,11 +15,14 @@ public class UnoGame {
     private Player player;
     private List<Player> players = new ArrayList<>();
     boolean isCardPlayed;
+    private PlayerStorage playerStorage;
 
     public UnoGame() throws NoCardRemainingException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
         player = new Player();
+        playerStorage= new PlayerStorage();
+
 //        unoDeck.shuffleDeck();
         addIntitalCardToDiscardPile();
 
@@ -38,32 +42,65 @@ public class UnoGame {
         }
     }
 
-    public void addPlayer(Player player) {
+    /**
+     * Sarah created this method
+     * @throws MaxPlayerReachedException
+     */
+    public void addPlayer() throws MaxPlayerReachedException {
+        if ((playerStorage.getSizeOfDatabase() == 0)
+            || (players.size()>10)){
+            throw new MaxPlayerReachedException();
 
-        players.add(player);
+        }
+        players.add(playerStorage.getFirstPlayer());
+        //illegal exception for more than 10 players
+        //if players in database is zero then dont let them add any more players
+
     }
 
+    /**
+     * Sarah created this method. This returns the total number of players from the players list
+     * @return
+     */
     public int getPlayerCount() {
 
         return players.size();
     }
 
+    /**
+     * This method counts the number of cards in the players hand
+     * @param playerLocation
+     * @return
+     */
     public int getPlayerHandSize(int playerLocation) {
         return players.get(playerLocation).getNumberOfCards();
 
     }
 
+    /**
+     * This methods counts the number of cards in the deck
+     * @return
+     */
     public int getDeckSize() {
         return unoDeck.getNumberOfCards();
 
     }
 
+    /**
+     * This method finds the players card location on the players hand when the game is running
+     * @param playerLocation
+     * @return
+     */
     public List<Card> getTheCardsPlayer(int playerLocation) {
         return players.get(playerLocation).viewCardsInPlayerHand();
 
     }
 
-    //    public void addCardsToDiscardFromPlayer(Card card, Player player){
+
+    /**
+     * Written by Abdullah. This method checks the discard pile to make sure that once the pile is at a 100 cards it adds the 100 cards back to the facedown deck.
+     */
+    //    public void addCardsToDiscardPileFromPlayer(Card card, Player player){
     //Abdullah to work on this method
     public void checkDiscardPile() {
         if (discardPile.totalInTheFaceUpPile() > 100) {
@@ -74,7 +111,14 @@ public class UnoGame {
         }
     }
 
-    public boolean addCardsToDiscardFromPlayer(int playerNumber, int cardPosition) {
+
+    /**
+     * This method adds a card from the exact location that the player selects from the players hand to the discard/FaceUp pile
+     * @param playerNumber
+     * @param cardPosition
+     * @return
+     */
+    public boolean addCardsToDiscardPileFromPlayer(int playerNumber, int cardPosition) {
         //this next line below removes the card due to getSelectedCard method
         //maybe create a removeselected card method separately
         Card card = players.get(playerNumber).getSelectedCard(cardPosition);
@@ -86,16 +130,25 @@ public class UnoGame {
         return isCardPlayed;
     }
 
+    /**
+     * This card gets the number of cards in the faceUp/discard pile.
+     * @return
+     */
 
     public int getSizeOfDiscardPile() {
         return discardPile.totalInTheFaceUpPile();
     }
 
+    /**
+     * This method adds the first card from the discard pile to the face up  throws an exception when there is no cards left in the .
+     * @throws NoCardRemainingException
+     */
     private void addIntitalCardToDiscardPile() throws NoCardRemainingException {
 //        unoDeck.shuffleDeck();
         discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
 
     }
+
 
 
     public Player getPlayer() {
