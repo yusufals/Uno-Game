@@ -139,12 +139,12 @@ public class UnoGame {
             actionCardRules.skipTurn();
             isCardPlayed = true;
 
-        } else if (discardPile.showTopCard().getColour() == playerSelectedCard.getColour() ||
+        } else if (currentColour == playerSelectedCard.getColour() ||
                 discardPile.showTopCard().getType() == playerSelectedCard.getType() ||
                 playerSelectedCard.getType()==CardAction.Wild) {
             discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
             if(playerSelectedCard.getType()==CardAction.Wild){
-                //Method to change the colour of Discard Pile
+                 setCurrentColour(this.currentColour);
             }
             isCardPlayed = true;
         } else {
@@ -241,7 +241,7 @@ public class UnoGame {
 
     }
 
-    public void currentColour(CardColour colour){
+    private void setCurrentColour(CardColour colour){
         this.currentColour = colour;
     }
 }

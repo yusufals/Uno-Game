@@ -47,10 +47,6 @@ public class ActionCardRules  {
 
     }
 
-    public void changeColour(CardColour colour){
-        unoGame.currentColour(colour);
-
-    }
 
     public void pickUpCard() throws NoCardRemainingException {
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
