@@ -13,7 +13,7 @@ public class Rules {
     PlayerStorage playersInGame;
 
    public Rules() throws NoCardRemainingException, OneCardAllowedException {
-        player = new Player();
+        player = new Player("Player One");
         game = new UnoGame();
         playersInGame = new PlayerStorage();
     }

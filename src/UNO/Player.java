@@ -1,5 +1,6 @@
 package UNO;
 
+
         import java.util.ArrayList;
         import java.util.List;
 
@@ -8,11 +9,11 @@ package UNO;
  */
 public class Player {
     private List<Card> playerHand = new ArrayList<>();
+    private String ID;
 
 
-
-    public Player() {
-
+    public Player(String ID) {
+        this.ID = ID;
     }
 
 
@@ -43,7 +44,15 @@ public class Player {
         return playerHand;
     }
 
+    @Override
+    public String toString(){
 
+        return  this.ID;
+    }
+
+    public String getID() {
+        return ID;
+    }
 }
 
 

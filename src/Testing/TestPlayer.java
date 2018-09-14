@@ -17,7 +17,7 @@ public class TestPlayer {
 
     @Test
     public void createPlayer() {
-        Player player = new Player();
+        Player player = new Player("One");
         assertEquals(0, player.getNumberOfCards());
 
     }
@@ -25,7 +25,7 @@ public class TestPlayer {
     @Test
     public void addOneCardToPlayersHand() {
         Card testCard = new Card(CardColour.Yellow, CardNumber.Eight);
-        Player player = new Player();
+        Player player = new Player("Player One");
         player.addCard(testCard);
         assertEquals(1, player.getNumberOfCards());
 
@@ -36,7 +36,7 @@ public class TestPlayer {
     public void testAddACardFromUnoDeck() throws NoCardRemainingException {
 
         UnoDeck unoDeck = new UnoDeck();
-        Player newPlayer = new Player();
+        Player newPlayer = new Player("Player One");
         unoDeck.shuffleDeck();
         assertEquals(112, unoDeck.getNumberOfCards());
         System.out.println("Number of Cards in the Deck is " + unoDeck.getNumberOfCards());
@@ -55,8 +55,8 @@ public class TestPlayer {
     public void testAdding7CardsToPlayerHand()throws  NoCardRemainingException{
 
         UnoDeck unoDeck = new UnoDeck();
-        Player newPlayer = new Player();
-        Player player2 = new Player();
+        Player newPlayer = new Player("Player One");
+        Player player2 = new Player("Player One");
         unoDeck.shuffleDeck();
         newPlayer.addCard(unoDeck.takeTopCard());
         newPlayer.addCard(unoDeck.takeTopCard());

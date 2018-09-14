@@ -11,11 +11,49 @@ public class ActionCardRules  {
         this.unoGame = unoGame;
     }
 
-    public void drawTwoCads() throws NoCardRemainingException {
+    public void drawTwoCards() throws NoCardRemainingException {
 
         //add two cards to the current player from deck
        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.switchToNextPlayer();
 
     }
+    public void drawFourCards() throws NoCardRemainingException {
+
+        //add two cards to the current player from deck
+        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.switchToNextPlayer();
+    }
+
+    public void wildChangeColour(){
+
+    }
+
+    public void skipTurn(){
+        unoGame.switchToNextPlayer();
+    }
+
+    public void reverseTurn(){
+
+
+    }
+
+    private void switchPlayer(){
+
+
+    }
+
+    public void changeColour(CardColour colour){
+        unoGame.currentColour(colour);
+
+    }
+
+    public void pickUpCard() throws NoCardRemainingException {
+        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+    }
+
 }

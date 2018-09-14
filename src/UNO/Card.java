@@ -18,7 +18,7 @@ public class Card {
         return colour;
     }
 
-    public CardType getNumber() {
+    public CardType getType() {
         return cardType;
     }
 

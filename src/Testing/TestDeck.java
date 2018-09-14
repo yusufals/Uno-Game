@@ -25,7 +25,7 @@ public class TestDeck {
         Card card = new Card(colour, number);
 
         assertEquals("Unexpected initial card colour", colour, card.getColour());
-        assertEquals("Unexpected initial card number", number, card.getNumber());
+        assertEquals("Unexpected initial card number", number, card.getType());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TestDeck {
         Card card = new Card(colour, number);
 
         assertEquals("Unexpected initial card colour", colour, card.getColour());
-        assertEquals("Unexpected initial card number", number, card.getNumber());
+        assertEquals("Unexpected initial card number", number, card.getType());
 
     }
 

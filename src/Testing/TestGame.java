@@ -23,7 +23,7 @@ public class TestGame {
     @Test
     public void testAddPlayer() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
         UnoGame game = new UnoGame();
-        Player player = new Player();
+        Player player = new Player("Player One");
         game.addPlayer();
 
         assertEquals(1, game.getPlayerCount());
@@ -34,7 +34,7 @@ public class TestGame {
     public void testCardsInPlayerHands() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
 
         UnoGame game = new UnoGame();
-        Player player = new Player();
+        Player player = new Player("Player One");
         game.addPlayer();
         game.addPlayer();
         game.addPlayer();
@@ -48,10 +48,10 @@ public class TestGame {
     public void testPlayCardToSeeIfITMatches() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
 
         UnoGame game = new UnoGame();
-        Player firstPlayer = new Player();
+        Player firstPlayer = new Player("Player One");
         game.addPlayer();
         game.giveCardsToPlayers();
-        System.out.println(game.getPlayer());
+        System.out.println(game.getPlayer(0));
         System.out.println(game.getTheCardsPlayer(0));
 
         System.out.println(game.getTopDiscard());
@@ -98,6 +98,36 @@ public class TestGame {
     public void oneCardInBeginningOfGame () throws OneCardAllowedException, NoCardRemainingException {
         UnoGame game= new UnoGame();
         game.addFirstCardToDiscardPile();
+
+
+    }
+
+    @Test
+    public void testUNOGAME() throws OneCardAllowedException, NoCardRemainingException, MaxPlayerReachedException {
+        UnoGame game = new UnoGame();
+        game.addPlayer();
+        game.addPlayer();
+        game.addPlayer();
+        game.addPlayer();
+        game.addPlayer();
+        game.addPlayer();
+        game.addPlayer();
+        game.giveCardsToPlayers();
+        System.out.println(game.getPlayers());
+        System.out.println(game.getTopDiscard());
+        System.out.println(game.getPlayer(0)+""+ game.getTheCardsPlayer(0));
+        System.out.println(game.getPlayer(1)+""+ game.getTheCardsPlayer(1));
+        System.out.println(game.getPlayer(2)+""+ game.getTheCardsPlayer(2));
+        System.out.println(game.getPlayer(3)+""+ game.getTheCardsPlayer(3));
+        System.out.println(game.getPlayer(4)+""+ game.getTheCardsPlayer(4));
+        System.out.println(game.getPlayer(5)+""+ game.getTheCardsPlayer(5));
+        System.out.println(game.getPlayer(6)+""+ game.getTheCardsPlayer(6));
+        game.playTurn(2,0);
+        System.out.println(game.getTheCardsPlayer(2));
+        System.out.println(game.getCurrentPlayer()+1);
+
+
+
 
 
     }

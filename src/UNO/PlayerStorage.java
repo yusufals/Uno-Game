@@ -14,16 +14,16 @@ public class PlayerStorage {
 
     public PlayerStorage(){
 
-        Player player1= new Player();
-        Player player2= new Player();
-        Player player3= new Player();
-        Player player4= new Player();
-        Player player5= new Player();
-        Player player6= new Player();
-        Player player7= new Player();
-        Player player8= new Player();
-        Player player9= new Player();
-        Player player10= new Player();
+        Player player1= new Player("Player One");
+        Player player2= new Player("Player Two");
+        Player player3= new Player("Player Three");
+        Player player4= new Player("Player Four");
+        Player player5= new Player("Player Five");
+        Player player6= new Player("Player Six");
+        Player player7= new Player("Player Seven");
+        Player player8= new Player("Player eight");
+        Player player9= new Player("Player Nine");
+        Player player10= new Player("Player Ten");
 
 
         playerDatabase.add(player1);

@@ -20,16 +20,17 @@ public class UnoGame {
     private int currentPlayer;
     private Card visibleCard;
     ActionCardRules actionCardRules;
+    private CardColour currentColour;
 
     public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
-        player = new Player();
-        playerStorage= new PlayerStorage();
+//        player = new Player();
+        playerStorage = new PlayerStorage();
         UnoGame currentUnoGame = this;
         actionCardRules = new ActionCardRules(currentUnoGame);
 
-//        unoDeck.shuffleDeck();
+        unoDeck.shuffleDeck();
         addFirstCardToDiscardPile();
 
     }
@@ -50,11 +51,12 @@ public class UnoGame {
 
     /**
      * Sarah created this method
+     *
      * @throws MaxPlayerReachedException
      */
     public void addPlayer() throws MaxPlayerReachedException {
         if ((playerStorage.getSizeOfDatabase() == 0)
-            || (players.size()>10)){
+                || (players.size() > 10)) {
             throw new MaxPlayerReachedException();
 
         }
@@ -66,6 +68,7 @@ public class UnoGame {
 
     /**
      * Sarah created this method. This returns the total number of players from the players list
+     *
      * @return
      */
     public int getPlayerCount() {
@@ -75,6 +78,7 @@ public class UnoGame {
 
     /**
      * This method counts the number of cards in the players hand
+     *
      * @param playerLocation
      * @return
      */
@@ -85,6 +89,7 @@ public class UnoGame {
 
     /**
      * This methods counts the number of cards in the deck
+     *
      * @return
      */
     public int getDeckSize() {
@@ -94,6 +99,7 @@ public class UnoGame {
 
     /**
      * This method finds the players card location on the players hand when the game is running
+     *
      * @param playerLocation
      * @return
      */
@@ -117,9 +123,43 @@ public class UnoGame {
         }
     }
 
+    public boolean playTurn(int playerNumber, int cardPosition) throws NoCardRemainingException {
+        this.currentPlayer = playerNumber;
+        this.visibleCard = discardPile.showTopCard();
+        currentColour = visibleCard.getColour();
+        Card playerSelectedCard = players.get(playerNumber).getSelectedCard(cardPosition);
+
+        if (visibleCard.getType() == CardNumber.PlusTwo) {
+            actionCardRules.drawTwoCards();
+            isCardPlayed = true;
+        } else if (visibleCard.getType() == CardAction.WildFour) {
+            actionCardRules.drawFourCards();
+            isCardPlayed = true;
+        } else if (visibleCard.getType() == CardNumber.Skip) {
+            actionCardRules.skipTurn();
+            isCardPlayed = true;
+
+        } else if (discardPile.showTopCard().getColour() == playerSelectedCard.getColour() ||
+                discardPile.showTopCard().getType() == playerSelectedCard.getType() ||
+                playerSelectedCard.getType()==CardAction.Wild) {
+            discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
+            if(playerSelectedCard.getType()==CardAction.Wild){
+                //Method to change the colour of Discard Pile
+            }
+            isCardPlayed = true;
+        } else {
+            actionCardRules.pickUpCard();
+            switchToNextPlayer();
+
+        }
+
+
+        return isCardPlayed;
+    }
 
     /**
      * This method adds a card from the exact location that the player selects from the players hand to the discard/FaceUp pile
+     *
      * @param playerNumber
      * @param cardPosition
      * @return
@@ -127,13 +167,13 @@ public class UnoGame {
     public boolean addCardsToDiscardPileFromPlayer(int playerNumber, int cardPosition) {
         //this next line below removes the card due to getSelectedCard method
         //maybe create a remove selected card method separately
-        this.currentPlayer=playerNumber;
+        this.currentPlayer = playerNumber;
         this.visibleCard = discardPile.showTopCard();
 
         Card card = players.get(playerNumber).getSelectedCard(cardPosition);
 
         if (discardPile.showTopCard().getColour() == card.getColour() ||
-                discardPile.showTopCard().getNumber() == card.getNumber()) {
+                discardPile.showTopCard().getType() == card.getType()) {
             discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
             isCardPlayed = true;
         }
@@ -142,6 +182,7 @@ public class UnoGame {
 
     /**
      * This card gets the number of cards in the faceUp/discard pile.
+     *
      * @return
      */
 
@@ -151,32 +192,30 @@ public class UnoGame {
 
     /**
      * This method adds the cards from the deck to the discard pile / face up pile.
+     *
      * @throws NoCardRemainingException
      */
     public void addFirstCardToDiscardPile() throws NoCardRemainingException, OneCardAllowedException {
 //        unoDeck.shuffleDeck();
 
-        if (discardPile.totalInTheFaceUpPile()==0){
+        if (discardPile.totalInTheFaceUpPile() == 0) {
             discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
-        }
-
-        else {
+        } else {
 
             throw new OneCardAllowedException();
         }
     }
 
 
-
-    public Player getPlayer() {
-        return player;
+    public Player getPlayer(int index) {
+        return players.get(index);
     }
 
     public List<Player> getPlayers() {
         return players;
     }
 
-    public Card getTopDiscard(){
+    public Card getTopDiscard() {
         return discardPile.showTopCard();
     }
 
@@ -186,5 +225,23 @@ public class UnoGame {
 
     public int getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public void switchToNextPlayer() {
+        if (currentPlayer < (players.size() - 1)) {
+            currentPlayer++;
+        } else if (currentPlayer == (players.size() - 1)) {
+            currentPlayer = 0;
+        }
+
+    }
+
+    public String getCurrentPlayerName() {
+        return player.getID();
+
+    }
+
+    public void currentColour(CardColour colour){
+        this.currentColour = colour;
     }
 }
