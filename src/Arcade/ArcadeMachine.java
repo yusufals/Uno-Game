@@ -1,9 +1,6 @@
 package Arcade;
 
-import Exceptions.InsufficientFundsException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidNumberOfPlayersException;
-import Exceptions.NoCardRemainingException;
+import Exceptions.*;
 import UNO.UnoGame;
 
 import java.io.BufferedReader;
@@ -22,7 +19,7 @@ public class ArcadeMachine {
     private Map<String, UnoGame> availableGames;
     private TextGame              currentGame;
 
-    public ArcadeMachine() throws NoCardRemainingException {
+    public ArcadeMachine() throws NoCardRemainingException, OneCardAllowedException {
         this.availableGames = new HashMap<>();
 
         // Default available game(s) - to help with running/re-running the game.

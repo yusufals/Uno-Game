@@ -2,6 +2,7 @@ package UNO;
 
 import Exceptions.MaxPlayerReachedException;
 import Exceptions.NoCardRemainingException;
+import Exceptions.OneCardAllowedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,14 @@ public class UnoGame {
     boolean isCardPlayed;
     private PlayerStorage playerStorage;
 
-    public UnoGame() throws NoCardRemainingException {
+    public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
         player = new Player();
         playerStorage= new PlayerStorage();
 
 //        unoDeck.shuffleDeck();
-        addIntitalCardToDiscardPile();
+        addFirstCardToDiscardPile();
 
     }
 
@@ -140,12 +141,17 @@ public class UnoGame {
     }
 
     /**
-     * This method adds the first card from the discard pile to the face up  throws an exception when there is no cards left in the .
+     * This method adds the cards from the deck to the discard pile / face up pile.
      * @throws NoCardRemainingException
      */
-    private void addIntitalCardToDiscardPile() throws NoCardRemainingException {
+    public void addFirstCardToDiscardPile() throws NoCardRemainingException, OneCardAllowedException {
 //        unoDeck.shuffleDeck();
-        discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
+
+        if (discardPile.totalInTheFaceUpPile()==0){
+            discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
+
+        }
+        throw new OneCardAllowedException();
 
     }
 

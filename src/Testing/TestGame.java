@@ -7,6 +7,7 @@ package Testing;
 
 import Exceptions.MaxPlayerReachedException;
 import Exceptions.NoCardRemainingException;
+import Exceptions.OneCardAllowedException;
 import UNO.Player;
 import UNO.UnoGame;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class TestGame {
     }
 
     @Test
-    public void testAddPlayer() throws NoCardRemainingException, MaxPlayerReachedException {
+    public void testAddPlayer() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
         UnoGame game = new UnoGame();
         Player player = new Player();
         game.addPlayer();
@@ -30,7 +31,7 @@ public class TestGame {
     }
 
     @Test
-    public void testCardsInPlayerHands() throws NoCardRemainingException, MaxPlayerReachedException {
+    public void testCardsInPlayerHands() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
 
         UnoGame game = new UnoGame();
         Player player = new Player();
@@ -44,7 +45,7 @@ public class TestGame {
     }
 
     @Test
-    public void testPlayCardToSeeIfITMatches() throws NoCardRemainingException, MaxPlayerReachedException {
+    public void testPlayCardToSeeIfITMatches() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
 
         UnoGame game = new UnoGame();
         Player firstPlayer = new Player();
@@ -63,7 +64,7 @@ public class TestGame {
     }
 
     @Test
-    public void testAddPlayers() throws NoCardRemainingException, MaxPlayerReachedException {
+    public void testAddPlayers() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
         UnoGame game = new UnoGame();
         game.addPlayer();
         assertEquals(1, game.getPlayerCount());
@@ -73,7 +74,7 @@ public class TestGame {
     }
 
     @Test (expected = MaxPlayerReachedException.class)
-    public void testMaxPlayerReached() throws NoCardRemainingException, MaxPlayerReachedException {
+    public void testMaxPlayerReached() throws NoCardRemainingException, MaxPlayerReachedException, OneCardAllowedException {
         UnoGame game = new UnoGame();
         game.addPlayer();
         game.addPlayer();
@@ -88,6 +89,15 @@ public class TestGame {
         assertEquals(10, game.getPlayerCount());
         game.addPlayer();
         //(expected = ArithmeticException.class)
+
+
+
+    }
+
+    @Test //(expected = OneCardAllowedException.class)
+    public void oneCardInBeginningOfGame () throws OneCardAllowedException, NoCardRemainingException {
+        UnoGame game= new UnoGame();
+        game.addFirstCardToDiscardPile();
 
 
     }
