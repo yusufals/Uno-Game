@@ -14,13 +14,14 @@ public class UnoGame {
     private Player player;
     private List<Player> players = new ArrayList<>();
     boolean isCardPlayed;
+    private Card topCardOnDiscard;
 
     public UnoGame() throws NoCardRemainingException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
         player = new Player();
 //        unoDeck.shuffleDeck();
-        addIntitalCardToDiscardPile();
+        addInitialCardToDiscardPile();
 
     }
 
@@ -76,10 +77,11 @@ public class UnoGame {
 
     public boolean addCardsToDiscardFromPlayer(int playerNumber, int cardPosition) {
         //this next line below removes the card due to getSelectedCard method
-        //maybe create a removeselected card method separately
+        //maybe create a remove selected card method separately
         Card card = players.get(playerNumber).getSelectedCard(cardPosition);
-        if (discardPile.showTopCard().getColour() == card.getColour() ||
-                discardPile.showTopCard().getNumber() == card.getNumber()) {
+        getTopDiscard();
+        if (topCardOnDiscard.getColour() == card.getColour() ||
+                topCardOnDiscard.getNumber() == card.getNumber()) {
             discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
             isCardPlayed = true;
         }
@@ -91,7 +93,7 @@ public class UnoGame {
         return discardPile.totalInTheFaceUpPile();
     }
 
-    private void addIntitalCardToDiscardPile() throws NoCardRemainingException {
+    private void addInitialCardToDiscardPile() throws NoCardRemainingException {
 //        unoDeck.shuffleDeck();
         discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
 
@@ -107,6 +109,7 @@ public class UnoGame {
     }
 
     public Card getTopDiscard(){
+        this.topCardOnDiscard = discardPile.showTopCard();
         return discardPile.showTopCard();
     }
 }
