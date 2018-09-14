@@ -19,12 +19,15 @@ public class UnoGame {
     private PlayerStorage playerStorage;
     private int currentPlayer;
     private Card visibleCard;
+    ActionCardRules actionCardRules;
 
     public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
         player = new Player();
         playerStorage= new PlayerStorage();
+        UnoGame currentUnoGame = this;
+        actionCardRules = new ActionCardRules(currentUnoGame);
 
 //        unoDeck.shuffleDeck();
         addFirstCardToDiscardPile();
@@ -155,10 +158,12 @@ public class UnoGame {
 
         if (discardPile.totalInTheFaceUpPile()==0){
             discardPile.placeCardOnFaceUpPile(unoDeck.takeTopCard());
-
         }
-        throw new OneCardAllowedException();
 
+        else {
+
+            throw new OneCardAllowedException();
+        }
     }
 
 

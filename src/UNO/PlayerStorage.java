@@ -41,15 +41,15 @@ public class PlayerStorage {
 
 
 
-    public Player getFirstPlayer(){
-        Player x= playerDatabase.get(0);
-        playerDatabase.remove(0);
-        return x;
+        public Player getFirstPlayer(){
+            Player x= playerDatabase.get(0);
+            playerDatabase.remove(0);
+            return x;
     }
 
-    public int getSizeOfDatabase(){
-        return playerDatabase.size();
-    }
+        public int getSizeOfDatabase(){
+            return playerDatabase.size();
+        }
     }
 
 
