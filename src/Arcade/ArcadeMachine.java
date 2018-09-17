@@ -43,7 +43,7 @@ public class ArcadeMachine {
      *
      * @throws IOException
      */
-    public void run() throws IOException {
+    public void run() throws IOException, InvalidCardException, MaxPlayerReachedException, NoCardRemainingException {
 
         System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
@@ -71,6 +71,8 @@ public class ArcadeMachine {
                 } catch (InvalidNumberOfPlayersException e) {
                     System.out.println("Cannot start the game with the current number of players.");
                 }
+
+
             }
         }
     }
@@ -120,7 +122,7 @@ public class ArcadeMachine {
      * @throws InsufficientFundsException
      * @throws InvalidNumberOfPlayersException
      */
-    private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException, IOException {
+    private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException, IOException, InvalidCardException, NoCardRemainingException, MaxPlayerReachedException {
         if (command.equals("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
@@ -129,44 +131,38 @@ public class ArcadeMachine {
             System.out.println("one coin has been inserted");
             System.out.println("currently you have: " + currentGame.getCoins() + " coins");
         } else if (command.equals("add player")) {
-            try {
-                currentGame.addPlayer();
-            } catch (MaxPlayerReachedException e) {
-                e.printStackTrace();
-            }
+            currentGame.addPlayer();
             System.out.println("There are currently:  " + currentGame.getPlayers() + "players in the game");
         } else if (command.equals("setup game")) {
-            try {
-                currentGame.startGame();
-            } catch (NoCardRemainingException e) {
-                e.printStackTrace();
-            }
-        }else if(command.equalsIgnoreCase("start game")){
+
+            currentGame.startGame();
+
+        } else if (command.equalsIgnoreCase("start game")) {
             boolean isGameRunning = true;
-            while (isGameRunning){
+            while (isGameRunning) {
 
                 System.out.println("Players in the game " + currentGame.getPlayers());
                 currentGame.getTotalCardsInPlayerHand();
-                System.out.println("Last visible card is "+currentGame.showDiscard());
+                System.out.println("Last visible card is " + currentGame.showDiscard());
 
-                System.out.println("You are player : "+currentGame.getCurrentPlayer() +
+                System.out.println("You are player : " + currentGame.getCurrentPlayer() +
                         " and your cards are: " + currentGame.showPlayerHand());
 
                 System.out.println("Please select the card number you'd like to play," +
                         " 0 is the far left, and increments by one");
                 String cardNumber = br.readLine();
-                if (cardNumber.equalsIgnoreCase("exit")){
+                if (cardNumber.equalsIgnoreCase("exit")) {
                     isGameRunning = false;
-                }
-                try {
-                    int number = Integer.parseInt(cardNumber);
-                    currentGame.playTurn(number);
-                } catch(NumberFormatException e){
-                    e.printStackTrace();
-                } catch (NoCardRemainingException e) {
-                    e.printStackTrace();
-                } catch (InvalidCardException e) {
-                    e.printStackTrace();
+                } else {
+                    try {
+                        int number = Integer.parseInt(cardNumber);
+                        currentGame.playTurn(number);
+                    } catch (InvalidCardException e) {
+                        System.out.println("Invalid card");
+                    } catch (NoCardRemainingException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
             }
@@ -175,9 +171,10 @@ public class ArcadeMachine {
 
 
     }
-
-
 }
+
+
+
 
 
 

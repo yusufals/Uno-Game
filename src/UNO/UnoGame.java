@@ -133,7 +133,7 @@ public class UnoGame {
         currentColour = visibleCard.getColour();
         Card playerSelectedCard = players.get(currentPlayer).getSelectedCard(cardPosition);
         if(cardPosition<0 ||
-            cardPosition>players.get(currentPlayer).getNumberOfCards()){
+            cardPosition>=players.get(currentPlayer).getNumberOfCards()){
             throw new InvalidCardException();
         }
 

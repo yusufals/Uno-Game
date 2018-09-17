@@ -30,7 +30,7 @@ public class Player {
 
     //method added to get the card from selected position
     public Card getSelectedCard(int position) throws InvalidCardException {
-        if (position < 0 || position > playerHand.size()) {
+        if (position < 0 || position >= playerHand.size()) {
             throw new InvalidCardException();
         } else {
             Card selectedCard = playerHand.get(position);
