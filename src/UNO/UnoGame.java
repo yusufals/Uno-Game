@@ -1,9 +1,6 @@
 package UNO;
 
-import Exceptions.InvalidCardException;
-import Exceptions.MaxPlayerReachedException;
-import Exceptions.NoCardRemainingException;
-import Exceptions.OneCardAllowedException;
+import Exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +46,13 @@ public class UnoGame {
     }
 
 
-    public void removePlayer() throws MaxPlayerReachedException {
-        Player x = players.remove(players.size() - 1);
-        playerStorage.removePlayerFromGame(x);
+    public void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException {
+        if (players.size() == 0) {
+            throw new InvalidNumberOfPlayersException();
+        } else {
+            Player x = players.remove(players.size() - 1);
+            playerStorage.removePlayerFromGame(x);
+        }
     }
 
     /**
@@ -109,6 +110,7 @@ public class UnoGame {
         return players.get(playerLocation).viewCardsInPlayerHand();
 
     }
+
     public List<Card> getCurrentPlayerHand() {
         return players.get(currentPlayer).viewCardsInPlayerHand();
     }
@@ -132,26 +134,20 @@ public class UnoGame {
         this.visibleCard = discardPile.showTopCard();
         currentColour = visibleCard.getColour();
         Card playerSelectedCard = players.get(currentPlayer).getSelectedCard(cardPosition);
-        if(cardPosition<0 ||
-            cardPosition>=players.get(currentPlayer).getNumberOfCards()){
+
+        if (cardPosition < 0 ||
+                cardPosition >= players.get(currentPlayer).getNumberOfCards()) {
             throw new InvalidCardException();
         }
-
-        if (visibleCard.getType() == CardNumber.PlusTwo) {
-            actionCardRules.drawTwoCards();
-            changeType();
-            isCardPlayed = true;
-        } else if (visibleCard.getType() == CardAction.WildFour) {
-            actionCardRules.drawFourCards();
-            changeType();
-            isCardPlayed = true;
-        } else if (visibleCard.getType() == CardNumber.Skip) {
-            actionCardRules.skipTurn();
-            changeType();
-            isCardPlayed = true;
+        if (visibleCard.getType() == CardAction.Wild
+                || visibleCard.getType() == CardAction.WildFour ||
+                visibleCard.getType() == CardNumber.Skip ||
+                visibleCard.getType() == CardNumber.PlusTwo) {
+            wildCardRules();
         } else if (currentColour == playerSelectedCard.getColour() ||
                 discardPile.showTopCard().getType() == playerSelectedCard.getType() ||
-                playerSelectedCard.getType() == CardAction.Wild) {
+                playerSelectedCard.getType() == CardAction.Wild ||
+                playerSelectedCard.getType() == CardNumber.Zero) {
             discardPile.placeCardOnFaceUpPile(players.get(currentPlayer).removeSelected(cardPosition));
             switchToNextPlayer();
             if (playerSelectedCard.getType() == CardAction.Wild) {
@@ -216,8 +212,12 @@ public class UnoGame {
     public Player getPlayer(int index) {
         return players.get(index);
     }
-    public Player getPlayerX() {
-        return players.get(currentPlayer);
+
+    public Player getPlayerX() throws InvalidNumberOfPlayersException {
+        if (players.size() == 0) {
+            throw new InvalidNumberOfPlayersException();
+        } else
+            return players.get(currentPlayer);
     }
 
     public List<Player> getPlayers() {
@@ -253,24 +253,46 @@ public class UnoGame {
     public void setCurrentColour(CardColour colour) {
         this.currentColour = colour;
     }
-    private void changeType(){
 
-        Card blueCard =new Card(CardColour.Blue, CardNumber.One);
-        Card redCard =new Card(CardColour.Red, CardNumber.One);
-        Card greenCard =new Card(CardColour.Green, CardNumber.One);
-        Card yellowCard =new Card(CardColour.Yellow, CardNumber.One);
+    protected Card changeType() {
 
-        if (visibleCard.getColour()==CardColour.Blue){
-            visibleCard = blueCard;
-        } else if (visibleCard.getColour()==CardColour.Red){
-            visibleCard = redCard;
-        } else if (visibleCard.getColour()==CardColour.Green){
-            visibleCard = greenCard;
-        } else if (visibleCard.getColour()==CardColour.Yellow){
-            visibleCard = yellowCard;
+        Card blueCard = new Card(CardColour.Blue, CardNumber.Zero);
+        Card redCard = new Card(CardColour.Red, CardNumber.Zero);
+        Card greenCard = new Card(CardColour.Green, CardNumber.Zero);
+        Card yellowCard = new Card(CardColour.Yellow, CardNumber.Zero);
+        Card tempCard = null;
+        if (visibleCard.getColour() == CardColour.Blue) {
+            tempCard = blueCard;
+        } else if (visibleCard.getColour() == CardColour.Red) {
+            tempCard = redCard;
+        } else if (visibleCard.getColour() == CardColour.Green) {
+            tempCard = greenCard;
+        } else if (visibleCard.getColour() == CardColour.Yellow) {
+            tempCard = yellowCard;
         }
+        return tempCard;
 
     }
 
+    public void wildCardRules() throws NoCardRemainingException {
+        if (visibleCard.getType() == CardNumber.PlusTwo) {
+            actionCardRules.drawTwoCards();
+            changeType();
+            isCardPlayed = true;
+        } else if (visibleCard.getType() == CardAction.WildFour) {
+            actionCardRules.drawFourCards();
+            changeType();
+            isCardPlayed = true;
+        } else if (visibleCard.getType() == CardNumber.Skip) {
+            actionCardRules.skipTurn();
+            changeType();
+            isCardPlayed = true;
+        }
 
+
+    }
+
+    protected void addTempCardToDiscardPile(Card card) {
+        discardPile.placeCardOnFaceUpPile(card);
+    }
 }

@@ -133,6 +133,8 @@ public class ArcadeMachine {
         } else if (command.equals("add player")) {
             currentGame.addPlayer();
             System.out.println("There are currently:  " + currentGame.getPlayers() + "players in the game");
+        } else if (command.equals("remove player")) {
+            currentGame.removePlayer();
         } else if (command.equals("setup game")) {
 
             currentGame.startGame();

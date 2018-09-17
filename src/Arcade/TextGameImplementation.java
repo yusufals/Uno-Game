@@ -65,7 +65,7 @@ public class TextGameImplementation implements TextGame {
         }
     }
 
-    public void removePlayer() throws MaxPlayerReachedException {
+    public void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException {
         game.removePlayer();
     }
 
@@ -74,7 +74,8 @@ public class TextGameImplementation implements TextGame {
     }
 
     public String getScoreboard() {
-        return null;
+        //Add the scores from the remaining cards of the players
+        return "Final score";
     }
 
     public String getHelp() {
@@ -105,7 +106,7 @@ public class TextGameImplementation implements TextGame {
         }
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() throws InvalidNumberOfPlayersException {
 
         return game.getPlayerX();
     }

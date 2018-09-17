@@ -16,6 +16,7 @@ public class ActionCardRules  {
         //add two cards to the current player from deck
        unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.addTempCardToDiscardPile(unoGame.changeType());
         unoGame.switchToNextPlayer();
 
     }
@@ -26,6 +27,7 @@ public class ActionCardRules  {
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
         unoGame.getPlayers().get(unoGame.getCurrentPlayer()).addCard(unoGame.getUnoDeck().takeTopCard());
+        unoGame.addTempCardToDiscardPile(unoGame.changeType());
         unoGame.switchToNextPlayer();
     }
 
@@ -33,6 +35,7 @@ public class ActionCardRules  {
         //Add codes for user to select the colour
     }
     public void skipTurn(){
+        unoGame.addTempCardToDiscardPile(unoGame.changeType());
         unoGame.switchToNextPlayer();
     }
 

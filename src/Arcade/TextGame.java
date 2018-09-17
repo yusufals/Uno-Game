@@ -30,7 +30,7 @@ public interface TextGame {
 
     void addPlayer() throws InsufficientFundsException, MaxPlayerReachedException;
 
-    void removePlayer() throws MaxPlayerReachedException;
+    void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException;
 
     List<Player> getPlayers();
 
@@ -44,6 +44,6 @@ public interface TextGame {
 
     int getCoins();
     void playTurn(int cardToPlay) throws NoCardRemainingException, InvalidCardException;
-    Player getCurrentPlayer();
+    Player getCurrentPlayer() throws InvalidNumberOfPlayersException;
 }
 
