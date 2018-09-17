@@ -16,6 +16,9 @@ import java.util.Map;
  * @version 2018.09.10-001
  */
 public class ArcadeMachine {
+
+    InputStreamReader isr = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(isr);
     private Map<String, UnoGame> availableGames;
     private TextGame currentGame;
 
@@ -41,17 +44,18 @@ public class ArcadeMachine {
      * @throws IOException
      */
     public void run() throws IOException {
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
 
         System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
         while (true) {
+            System.out.println("Please type: 'Arcade help' to get help");
             System.out.println("");
             System.out.println("------");
             System.out.println("Game status: " + getStatus());
             System.out.print(">>> ");
+
             String commandString = br.readLine();
+
 
             Command command = new Command(commandString);
             if (command.equals("exit")) {
@@ -78,6 +82,10 @@ public class ArcadeMachine {
         System.out.println("Arcade Commands:");
         System.out.println("arcade help            : help using the arcade");
         System.out.println("selectGame <game name> : select a given game");
+        System.out.println("insert coin            : to insert a coin");
+        System.out.println("add player             : to add a player");
+        System.out.println("setup game             : after adding players");
+        System.out.println("start game             : when you are ready to play");
         System.out.println("exit                   : exit the arcade");
         System.out.println("");
         System.out.println("Available Games: ");
@@ -112,7 +120,7 @@ public class ArcadeMachine {
      * @throws InsufficientFundsException
      * @throws InvalidNumberOfPlayersException
      */
-    private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException {
+    private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException, IOException {
         if (command.equals("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
@@ -127,7 +135,41 @@ public class ArcadeMachine {
                 e.printStackTrace();
             }
             System.out.println("There are currently:  " + currentGame.getPlayers() + "players in the game");
-        } else if (command.equals("startGame")) {
+        } else if (command.equals("setup game")) {
+            try {
+                currentGame.startGame();
+            } catch (NoCardRemainingException e) {
+                e.printStackTrace();
+            }
+        }else if(command.equalsIgnoreCase("start game")){
+            boolean isGameRunning = true;
+            while (isGameRunning){
+
+                System.out.println("Players in the game " + currentGame.getPlayers());
+                currentGame.getTotalCardsInPlayerHand();
+                System.out.println("Last visible card is "+currentGame.showDiscard());
+
+                System.out.println("You are player : "+currentGame.getCurrentPlayer() +
+                        " and your cards are: " + currentGame.showPlayerHand());
+
+                System.out.println("Please select the card number you'd like to play," +
+                        " 0 is the far left, and increments by one");
+                String cardNumber = br.readLine();
+                if (cardNumber.equalsIgnoreCase("exit")){
+                    isGameRunning = false;
+                }
+                try {
+                    int number = Integer.parseInt(cardNumber);
+                    currentGame.playTurn(number);
+                } catch(NumberFormatException e){
+                    e.printStackTrace();
+                } catch (NoCardRemainingException e) {
+                    e.printStackTrace();
+                } catch (InvalidCardException e) {
+                    e.printStackTrace();
+                }
+
+            }
 
         }
 

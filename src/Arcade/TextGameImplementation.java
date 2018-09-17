@@ -1,6 +1,7 @@
 package Arcade;
 
 import Exceptions.*;
+import UNO.Card;
 import UNO.Player;
 import UNO.UnoGame;
 
@@ -20,31 +21,32 @@ public class TextGameImplementation implements TextGame {
 
     public String getGameName() {
 
-        return  "Uno Game";
-}
+        return "Uno Game";
+    }
 
     public void insertCoin() {
         coins++;
     }
 
     public void startGame() throws InvalidNumberOfPlayersException, NoCardRemainingException {
-        if(game.getPlayerCount()<2){
+        if (game.getPlayerCount() < 2) {
             throw new InvalidNumberOfPlayersException();
-        } else{
+        } else {
             game.giveCardsToPlayers();
-
         }
-
-
     }
 
     public void endGame() {
 
     }
 
+    public void playTurn(int cardToPlay) throws NoCardRemainingException, InvalidCardException {
+        game.playTurn(cardToPlay);
+    }
+
     public String getGameState() {
         List<Player> x = game.getPlayers();
-        System.out.println("Players currently in the game: "+ x);
+        System.out.println("Players currently in the game: " + x);
         System.out.println(game.getPlayer(game.getCurrentPlayer()) + " is the current player");
 
         return "Printed text";
@@ -57,10 +59,10 @@ public class TextGameImplementation implements TextGame {
     public void addPlayer() throws InsufficientFundsException, MaxPlayerReachedException {
         if (coins < 1) {
             throw new InsufficientFundsException();
-        } else{
-                game.addPlayer();
-                coins--;
-            }
+        } else {
+            game.addPlayer();
+            coins--;
+        }
     }
 
     public void removePlayer() throws MaxPlayerReachedException {
@@ -82,8 +84,30 @@ public class TextGameImplementation implements TextGame {
     public int getCoins() {
         return coins;
     }
+
     public void handOutCards() throws NoCardRemainingException {
         game.giveCardsToPlayers();
+    }
+
+    public Card showDiscard() {
+        return game.getTopDiscard();
+    }
+
+    public List<Card> showPlayerHand() {
+        return game.getCurrentPlayerHand();
+
+    }
+
+    public void getTotalCardsInPlayerHand() {
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            System.out.print(game.getPlayer(i));
+            System.out.println(game.getPlayerHandSize(i));
+        }
+    }
+
+    public Player getCurrentPlayer(){
+
+        return game.getPlayerX();
     }
 }
 

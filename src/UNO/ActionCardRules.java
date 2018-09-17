@@ -30,28 +30,18 @@ public class ActionCardRules  {
     }
 
     public void wildChangeColour(String userInput) {
-        if (userInput == "Red") {
-            unoGame.setCurrentColour(CardColour.Red);
-        } else if (userInput == "Yellow") {
-            unoGame.setCurrentColour(CardColour.Yellow);
-        } else if (userInput == "Green") {
-            unoGame. setCurrentColour(CardColour.Green);
-        } else if (userInput == "Blue") {
-            unoGame. setCurrentColour(CardColour.Blue);
-        }
+        //Add codes for user to select the colour
     }
     public void skipTurn(){
         unoGame.switchToNextPlayer();
     }
 
     public void reverseTurn(){
-
-
+        //Add codes to reverse direction
     }
 
     private void switchPlayer(){
-
-
+        //Method for switching players
     }
 
 

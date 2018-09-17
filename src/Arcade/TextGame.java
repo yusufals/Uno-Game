@@ -1,6 +1,7 @@
 package Arcade;
 
 import Exceptions.*;
+import UNO.Card;
 import UNO.Player;
 
 import java.util.List;
@@ -34,11 +35,15 @@ public interface TextGame {
     List<Player> getPlayers();
 
     String getScoreboard();
-
+    Card showDiscard();
     String getHelp();
+    List<Card> showPlayerHand();
+    void getTotalCardsInPlayerHand();
 
     void handOutCards() throws NoCardRemainingException;
 
     int getCoins();
+    void playTurn(int cardToPlay) throws NoCardRemainingException, InvalidCardException;
+    Player getCurrentPlayer();
 }
 

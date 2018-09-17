@@ -1,8 +1,10 @@
 package UNO;
 
 
-        import java.util.ArrayList;
-        import java.util.List;
+import Exceptions.InvalidCardException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Marin has worked on this class
@@ -17,7 +19,6 @@ public class Player {
     }
 
 
-
     public int getNumberOfCards() {
         return playerHand.size();
     }
@@ -28,12 +29,16 @@ public class Player {
 
 
     //method added to get the card from selected position
-    public Card getSelectedCard(int position){
-        Card selectedCard= playerHand.get(position);
-//        playerHand.remove(position);
-        return selectedCard;
+    public Card getSelectedCard(int position) throws InvalidCardException {
+        if (position < 0 || position > playerHand.size()) {
+            throw new InvalidCardException();
+        } else {
+            Card selectedCard = playerHand.get(position);
+            return selectedCard;
+        }
     }
-    public Card removeSelected(int position){
+
+    public Card removeSelected(int position) {
         Card selectedCard = playerHand.get(position);
         playerHand.remove(position);
         return selectedCard;
@@ -45,9 +50,9 @@ public class Player {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
-        return  this.ID;
+        return this.ID;
     }
 
     public String getID() {

@@ -5,6 +5,7 @@ package Testing;
  * Abdullah has worked on this test class
  */
 
+import Exceptions.InvalidCardException;
 import Exceptions.MaxPlayerReachedException;
 import Exceptions.NoCardRemainingException;
 import Exceptions.OneCardAllowedException;
@@ -102,7 +103,7 @@ public class TestGame {
     }
 
     @Test
-    public void testUNOGAME() throws OneCardAllowedException, NoCardRemainingException, MaxPlayerReachedException {
+    public void testUNOGAME() throws OneCardAllowedException, NoCardRemainingException, MaxPlayerReachedException, InvalidCardException {
         UnoGame game = new UnoGame();
         game.addPlayer();
         game.addPlayer();
@@ -121,7 +122,7 @@ public class TestGame {
         System.out.println(game.getPlayer(4)+""+ game.getTheCardsPlayer(4));
         System.out.println(game.getPlayer(5)+""+ game.getTheCardsPlayer(5));
         System.out.println(game.getPlayer(6)+""+ game.getTheCardsPlayer(6));
-        game.playTurn(2,0);
+        game.playTurn(0);
         System.out.println(game.getTheCardsPlayer(2));
         System.out.println(game.getCurrentPlayer()+1);
 
