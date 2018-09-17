@@ -63,7 +63,7 @@ public class TextGameImplementation implements TextGame {
     }
 
     public List<Player> getPlayers() {
-        return null;
+        return game.getPlayers();
     }
 
     public String getScoreboard() {
@@ -74,6 +74,9 @@ public class TextGameImplementation implements TextGame {
         return null;
     }
 
+    public int getCoins() {
+        return coins;
+    }
 }
 
 

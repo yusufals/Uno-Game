@@ -17,9 +17,11 @@ import java.util.Map;
  */
 public class ArcadeMachine {
     private Map<String, UnoGame> availableGames;
-    private TextGame              currentGame;
+    private TextGame currentGame;
+    private TextGameImplementation finalGame;
 
     public ArcadeMachine() throws NoCardRemainingException, OneCardAllowedException {
+        finalGame = new TextGameImplementation();
         this.availableGames = new HashMap<>();
 
         // Default available game(s) - to help with running/re-running the game.
@@ -41,7 +43,7 @@ public class ArcadeMachine {
      */
     public void run() throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br  = new BufferedReader(isr);
+        BufferedReader br = new BufferedReader(isr);
 
         System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
@@ -53,11 +55,11 @@ public class ArcadeMachine {
             String commandString = br.readLine();
 
             Command command = new Command(commandString);
-            if (command.fullCommandString().equals("exit")) {
+            if (command.equals("exit")) {
                 break;
             } else {
                 try {
-                    runCommand(command);
+                    runCommand(commandString);
                 } catch (InsufficientFundsException e) {
                     System.out.println("Not enough funds.");
                 } catch (InvalidCommandException e) {
@@ -111,12 +113,22 @@ public class ArcadeMachine {
      * @throws InsufficientFundsException
      * @throws InvalidNumberOfPlayersException
      */
-    private void runCommand(Command command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException {
-        if (command.fullCommandString().equals("arcade help")) {
+    private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException {
+        if (command.equals("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
-        } else if (command.fullCommandString().startsWith("startGame ")) {
+        } else if (command.equals(("insert coins"))) {
+            finalGame.insertCoin();
+            System.out.println("one coin has been inserted");
+            System.out.println("currently you have: " + finalGame.getCoins());
+        } else if (command.equals("add player")) {
+            finalGame.addPlayer();
+        } else if (command.equals("startGame")) {
+            boolean isGameRunning = true;
+            while (isGameRunning) {
 
+
+            }
 
         }
 
