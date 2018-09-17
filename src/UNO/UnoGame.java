@@ -36,7 +36,7 @@ public class UnoGame {
     }
 
     public void giveCardsToPlayers() throws NoCardRemainingException {
-        //for each player in the playerslist
+        //for each player in the players list
         for (int i = 0; i < players.size(); i++) {
             //give seven cards from deck to each player
             players.get(i).addCard(unoDeck.takeTopCard());
@@ -50,10 +50,11 @@ public class UnoGame {
     }
 
 
-    public void removePlayer(){
-        Player x = players.remove(players.size()-1);
+    public void removePlayer() throws MaxPlayerReachedException {
+        Player x = players.remove(players.size() - 1);
         playerStorage.removePlayerFromGame(x);
-        }
+    }
+
     /**
      * Sarah created this method
      *
@@ -138,6 +139,7 @@ public class UnoGame {
             actionCardRules.drawTwoCards();
             isCardPlayed = true;
         } else if (visibleCard.getType() == CardAction.WildFour) {
+
             actionCardRules.drawFourCards();
             isCardPlayed = true;
         } else if (visibleCard.getType() == CardNumber.Skip) {
@@ -146,10 +148,19 @@ public class UnoGame {
 
         } else if (currentColour == playerSelectedCard.getColour() ||
                 discardPile.showTopCard().getType() == playerSelectedCard.getType() ||
-                playerSelectedCard.getType()==CardAction.Wild) {
+                playerSelectedCard.getType() == CardAction.Wild) {
             discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
-            if(playerSelectedCard.getType()==CardAction.Wild){
-                 setCurrentColour(this.currentColour);
+            if (playerSelectedCard.getType() == CardAction.Wild) {
+                if (currentColour == CardColour.Red) {
+                    setCurrentColour(CardColour.Blue);
+                } else if (currentColour == CardColour.Blue) {
+                    setCurrentColour(CardColour.Green);
+                } else if (currentColour == CardColour.Green) {
+                    setCurrentColour(CardColour.Yellow);
+                } else {
+                    setCurrentColour(CardColour.Red);
+                }
+
             }
             isCardPlayed = true;
         } else {
@@ -169,21 +180,7 @@ public class UnoGame {
      * @param cardPosition
      * @return
      */
-    public boolean addCardsToDiscardPileFromPlayer(int playerNumber, int cardPosition) {
-        //this next line below removes the card due to getSelectedCard method
-        //maybe create a remove selected card method separately
-        this.currentPlayer = playerNumber;
-        this.visibleCard = discardPile.showTopCard();
 
-        Card card = players.get(playerNumber).getSelectedCard(cardPosition);
-
-        if (discardPile.showTopCard().getColour() == card.getColour() ||
-                discardPile.showTopCard().getType() == card.getType()) {
-            discardPile.placeCardOnFaceUpPile(players.get(playerNumber).removeSelected(cardPosition));
-            isCardPlayed = true;
-        }
-        return isCardPlayed;
-    }
 
     /**
      * This card gets the number of cards in the faceUp/discard pile.
@@ -246,7 +243,10 @@ public class UnoGame {
 
     }
 
-    private void setCurrentColour(CardColour colour){
+    public void setCurrentColour(CardColour colour) {
         this.currentColour = colour;
     }
+
+
+
 }

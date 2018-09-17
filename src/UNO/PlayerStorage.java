@@ -1,5 +1,7 @@
 package UNO;
 
+import Exceptions.MaxPlayerReachedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,10 @@ public class PlayerStorage {
         return x;
     }
 
-    public void removePlayerFromGame(Player player){
+    public void removePlayerFromGame(Player player)throws MaxPlayerReachedException{
+        if(playerDatabase.size()>10){
+            throw new MaxPlayerReachedException();
+        }else
         playerDatabase.add(player);
 
     }

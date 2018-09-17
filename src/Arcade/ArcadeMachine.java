@@ -43,7 +43,7 @@ public class ArcadeMachine {
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br  = new BufferedReader(isr);
 
-        System.out.println("Welcome to <Team Name>'s Arcade!");
+        System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
         while (true) {
             System.out.println("");
@@ -115,25 +115,11 @@ public class ArcadeMachine {
         if (command.fullCommandString().equals("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
-        } else if (command.fullCommandString().startsWith("selectGame ")) {
-            // Selecting a game within the arcade.
-            String[] commandParts = command.getParts();
-            if (commandParts.length != 2) {
-                throw new InvalidCommandException();
-            }
+        } else if (command.fullCommandString().startsWith("startGame ")) {
 
-            String selectedGameName = commandParts[1];
-            if (!availableGames.containsKey(selectedGameName)) {
-                throw new InvalidCommandException(
-//                        "Cannot select game - unknown game: " + selectedGameName
-                );
-            }
 
-//            currentGame = availableGames.get(selectedGameName);
-        } else {
-            // Otherwise, if not an arcade command, pass the command to the game.
-            currentGame.sendCommand(command);
         }
+
     }
 
 

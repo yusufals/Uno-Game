@@ -3,6 +3,7 @@ package Arcade;
 import Exceptions.InsufficientFundsException;
 import Exceptions.InvalidCommandException;
 import Exceptions.InvalidNumberOfPlayersException;
+import Exceptions.MaxPlayerReachedException;
 import UNO.Player;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface TextGame {
 
     void addPlayer() throws InsufficientFundsException;
 
-    void removePlayer();
+    void removePlayer() throws MaxPlayerReachedException;
 
     List<Player> getPlayers();
 

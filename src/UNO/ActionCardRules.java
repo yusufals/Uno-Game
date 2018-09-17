@@ -29,10 +29,17 @@ public class ActionCardRules  {
         unoGame.switchToNextPlayer();
     }
 
-    public void wildChangeColour(){
-
+    public void wildChangeColour(String userInput) {
+        if (userInput == "Red") {
+            unoGame.setCurrentColour(CardColour.Red);
+        } else if (userInput == "Yellow") {
+            unoGame.setCurrentColour(CardColour.Yellow);
+        } else if (userInput == "Green") {
+            unoGame. setCurrentColour(CardColour.Green);
+        } else if (userInput == "Blue") {
+            unoGame. setCurrentColour(CardColour.Blue);
+        }
     }
-
     public void skipTurn(){
         unoGame.switchToNextPlayer();
     }
@@ -46,6 +53,8 @@ public class ActionCardRules  {
 
 
     }
+
+
 
 
     public void pickUpCard() throws NoCardRemainingException {

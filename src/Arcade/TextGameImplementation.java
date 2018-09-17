@@ -6,8 +6,10 @@ import UNO.UnoGame;
 
 import java.util.List;
 
+
 public class TextGameImplementation implements TextGame {
     UnoGame game;
+    private int coins;
 
     public TextGameImplementation() throws OneCardAllowedException, NoCardRemainingException {
 
@@ -21,13 +23,18 @@ public class TextGameImplementation implements TextGame {
     }
 
     public void insertCoin() {
-
+        coins++;
     }
 
     public void startGame() throws InvalidNumberOfPlayersException {
+        if(game.getPlayerCount()<2){
+            throw new InvalidNumberOfPlayersException();
+        }
+
     }
 
     public void endGame() {
+
     }
 
     public String getGameState() {
@@ -40,20 +47,23 @@ public class TextGameImplementation implements TextGame {
     }
 
     public void addPlayer() throws InsufficientFundsException {
-        try {
-            game.addPlayer();
-        } catch (MaxPlayerReachedException e) {
-            e.printStackTrace();
-        }
+        if (coins < 1) {
+            throw new InsufficientFundsException();
+        } else
+            try {
+                game.addPlayer();
+            } catch (MaxPlayerReachedException e) {
+                e.printStackTrace();
+                System.out.println("Maximum players has been added");
+            }
     }
 
-    public void removePlayer(){
+    public void removePlayer() throws MaxPlayerReachedException {
         game.removePlayer();
-
     }
 
     public List<Player> getPlayers() {
-        return  null;
+        return null;
     }
 
     public String getScoreboard() {

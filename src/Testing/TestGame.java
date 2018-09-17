@@ -55,7 +55,6 @@ public class TestGame {
         System.out.println(game.getTheCardsPlayer(0));
 
         System.out.println(game.getTopDiscard());
-        assertEquals(true, game.addCardsToDiscardPileFromPlayer(0, 3));
 
         System.out.println(game.getTheCardsPlayer(0));
         System.out.println(game.getTopDiscard());
