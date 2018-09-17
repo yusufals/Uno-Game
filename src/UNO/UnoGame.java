@@ -49,6 +49,11 @@ public class UnoGame {
         }
     }
 
+
+    public void removePlayer(){
+        Player x = players.remove(players.size()-1);
+        playerStorage.removePlayerFromGame(x);
+        }
     /**
      * Sarah created this method
      *

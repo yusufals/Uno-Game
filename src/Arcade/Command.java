@@ -1,8 +1,6 @@
 package Arcade;
 
-/**
- * Created by yusufals on 12/09/2018.
- */
+
 public class Command {
 
 

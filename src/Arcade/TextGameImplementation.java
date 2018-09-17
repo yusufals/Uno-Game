@@ -1,13 +1,19 @@
 package Arcade;
 
-import Exceptions.InsufficientFundsException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidNumberOfPlayersException;
+import Exceptions.*;
 import UNO.Player;
+import UNO.UnoGame;
 
 import java.util.List;
 
 public class TextGameImplementation implements TextGame {
+    UnoGame game;
+
+    public TextGameImplementation() throws OneCardAllowedException, NoCardRemainingException {
+
+        game = new UnoGame();
+    }
+
 
     public String getGameName() {
 
@@ -15,6 +21,7 @@ public class TextGameImplementation implements TextGame {
     }
 
     public void insertCoin() {
+
     }
 
     public void startGame() throws InvalidNumberOfPlayersException {
@@ -32,10 +39,16 @@ public class TextGameImplementation implements TextGame {
         return null;
     }
 
-    public void addPlayer(Player player) throws InsufficientFundsException {
+    public void addPlayer() throws InsufficientFundsException {
+        try {
+            game.addPlayer();
+        } catch (MaxPlayerReachedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void removePlayer(Player player){
+    public void removePlayer(){
+        game.removePlayer();
 
     }
 

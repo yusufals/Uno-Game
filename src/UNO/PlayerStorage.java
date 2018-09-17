@@ -11,19 +11,18 @@ public class PlayerStorage {
     private List<Player> playerDatabase = new ArrayList<Player>();
 
 
+    public PlayerStorage() {
 
-    public PlayerStorage(){
-
-        Player player1= new Player("Player One");
-        Player player2= new Player("Player Two");
-        Player player3= new Player("Player Three");
-        Player player4= new Player("Player Four");
-        Player player5= new Player("Player Five");
-        Player player6= new Player("Player Six");
-        Player player7= new Player("Player Seven");
-        Player player8= new Player("Player eight");
-        Player player9= new Player("Player Nine");
-        Player player10= new Player("Player Ten");
+        Player player1 = new Player("Player One");
+        Player player2 = new Player("Player Two");
+        Player player3 = new Player("Player Three");
+        Player player4 = new Player("Player Four");
+        Player player5 = new Player("Player Five");
+        Player player6 = new Player("Player Six");
+        Player player7 = new Player("Player Seven");
+        Player player8 = new Player("Player eight");
+        Player player9 = new Player("Player Nine");
+        Player player10 = new Player("Player Ten");
 
 
         playerDatabase.add(player1);
@@ -40,17 +39,21 @@ public class PlayerStorage {
     }
 
 
-
-        public Player getFirstPlayer(){
-            Player x= playerDatabase.get(0);
-            playerDatabase.remove(0);
-            return x;
+    public Player getFirstPlayer() {
+        Player x = playerDatabase.get(0);
+        playerDatabase.remove(0);
+        return x;
     }
 
-        public int getSizeOfDatabase(){
-            return playerDatabase.size();
-        }
+    public void removePlayerFromGame(Player player){
+        playerDatabase.add(player);
+
     }
+
+    public int getSizeOfDatabase() {
+        return playerDatabase.size();
+    }
+}
 
 
 

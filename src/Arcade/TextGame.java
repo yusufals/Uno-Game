@@ -7,12 +7,9 @@ import UNO.Player;
 
 import java.util.List;
 
-//import Arcade.Model.Command;
-//import Arcade.Model.Player;
-
 /**
  * The interface which all text game within the arcade must implement.
- *
+ * <p>
  * Update (2018.09.10-002) - Added methods to get the game name and game-specific help.
  *
  * @author Roger Howell
@@ -32,9 +29,9 @@ public interface TextGame {
 
     String sendCommand(Command command) throws InvalidCommandException;
 
-    void addPlayer(Player player) throws InsufficientFundsException;
+    void addPlayer() throws InsufficientFundsException;
 
-    void removePlayer(Player player);
+    void removePlayer();
 
     List<Player> getPlayers();
 
