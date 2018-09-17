@@ -18,21 +18,20 @@ import java.util.Map;
 public class ArcadeMachine {
     private Map<String, UnoGame> availableGames;
     private TextGame currentGame;
-    private TextGameImplementation finalGame;
 
     public ArcadeMachine() throws NoCardRemainingException, OneCardAllowedException {
-        finalGame = new TextGameImplementation();
+        currentGame = new TextGameImplementation();
         this.availableGames = new HashMap<>();
 
         // Default available game(s) - to help with running/re-running the game.
-        this.addGame("uno", new UnoGame());
+        this.addGame("Uno Game", new UnoGame());
     }
 
     /**
      * @param gameId The string that the user will need to type in to select the game.
      * @param game   The game itself.
      */
-    public void addGame(String gameId, UnoGame game) {
+    private void addGame(String gameId, UnoGame game) {
         this.availableGames.put(gameId, game);
     }
 
@@ -117,22 +116,26 @@ public class ArcadeMachine {
         if (command.equals("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
-        } else if (command.equals(("insert coins"))) {
-            finalGame.insertCoin();
+        } else if (command.equals(("insert coin"))) {
+            currentGame.insertCoin();
             System.out.println("one coin has been inserted");
-            System.out.println("currently you have: " + finalGame.getCoins());
+            System.out.println("currently you have: " + currentGame.getCoins() + " coins");
         } else if (command.equals("add player")) {
-            finalGame.addPlayer();
-        } else if (command.equals("startGame")) {
-            boolean isGameRunning = true;
-            while (isGameRunning) {
-
-
+            try {
+                currentGame.addPlayer();
+            } catch (MaxPlayerReachedException e) {
+                e.printStackTrace();
             }
+            System.out.println("There are currently:  " + currentGame.getPlayers() + "players in the game");
+        } else if (command.equals("startGame")) {
 
         }
+
 
     }
 
 
 }
+
+
+

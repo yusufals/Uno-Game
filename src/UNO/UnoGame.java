@@ -25,14 +25,11 @@ public class UnoGame {
     public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
-//        player = new Player();
         playerStorage = new PlayerStorage();
         UnoGame currentUnoGame = this;
         actionCardRules = new ActionCardRules(currentUnoGame);
-
         unoDeck.shuffleDeck();
         addFirstCardToDiscardPile();
-
     }
 
     public void giveCardsToPlayers() throws NoCardRemainingException {
@@ -67,9 +64,6 @@ public class UnoGame {
 
         }
         players.add(playerStorage.getFirstPlayer());
-        //illegal exception for more than 10 players
-        //if players in database is zero then don't let them add any more players
-
     }
 
     /**

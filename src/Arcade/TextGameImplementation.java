@@ -4,6 +4,7 @@ import Exceptions.*;
 import UNO.Player;
 import UNO.UnoGame;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 
@@ -19,17 +20,21 @@ public class TextGameImplementation implements TextGame {
 
     public String getGameName() {
 
-        return null;
-    }
+        return  "Uno Game";
+}
 
     public void insertCoin() {
         coins++;
     }
 
-    public void startGame() throws InvalidNumberOfPlayersException {
+    public void startGame() throws InvalidNumberOfPlayersException, NoCardRemainingException {
         if(game.getPlayerCount()<2){
             throw new InvalidNumberOfPlayersException();
+        } else{
+            game.giveCardsToPlayers();
+
         }
+
 
     }
 
@@ -38,23 +43,23 @@ public class TextGameImplementation implements TextGame {
     }
 
     public String getGameState() {
+        List<Player> x = game.getPlayers();
+        System.out.println("Players currently in the game: "+ x);
+        System.out.println(game.getPlayer(game.getCurrentPlayer()) + " is the current player");
 
-        return null;
+        return "Printed text";
     }
 
     public String sendCommand(Command command) throws InvalidCommandException {
         return null;
     }
 
-    public void addPlayer() throws InsufficientFundsException {
+    public void addPlayer() throws InsufficientFundsException, MaxPlayerReachedException {
         if (coins < 1) {
             throw new InsufficientFundsException();
-        } else
-            try {
+        } else{
                 game.addPlayer();
-            } catch (MaxPlayerReachedException e) {
-                e.printStackTrace();
-                System.out.println("Maximum players has been added");
+                coins--;
             }
     }
 
@@ -76,6 +81,9 @@ public class TextGameImplementation implements TextGame {
 
     public int getCoins() {
         return coins;
+    }
+    public void handOutCards() throws NoCardRemainingException {
+        game.giveCardsToPlayers();
     }
 }
 

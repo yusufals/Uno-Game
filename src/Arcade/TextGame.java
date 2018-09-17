@@ -1,9 +1,6 @@
 package Arcade;
 
-import Exceptions.InsufficientFundsException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidNumberOfPlayersException;
-import Exceptions.MaxPlayerReachedException;
+import Exceptions.*;
 import UNO.Player;
 
 import java.util.List;
@@ -22,7 +19,7 @@ public interface TextGame {
 
     void insertCoin();
 
-    void startGame() throws InvalidNumberOfPlayersException;
+    void startGame() throws InvalidNumberOfPlayersException, NoCardRemainingException;
 
     void endGame();
 
@@ -30,7 +27,7 @@ public interface TextGame {
 
     String sendCommand(Command command) throws InvalidCommandException;
 
-    void addPlayer() throws InsufficientFundsException;
+    void addPlayer() throws InsufficientFundsException, MaxPlayerReachedException;
 
     void removePlayer() throws MaxPlayerReachedException;
 
@@ -39,5 +36,9 @@ public interface TextGame {
     String getScoreboard();
 
     String getHelp();
+
+    void handOutCards() throws NoCardRemainingException;
+
+    int getCoins();
 }
 
