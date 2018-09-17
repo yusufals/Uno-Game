@@ -45,5 +45,6 @@ public interface TextGame {
     int getCoins();
     void playTurn(int cardToPlay) throws NoCardRemainingException, InvalidCardException;
     Player getCurrentPlayer() throws InvalidNumberOfPlayersException;
+    int currentScore() throws InvalidCardException;
 }
 

@@ -101,14 +101,20 @@ public class TextGameImplementation implements TextGame {
 
     public void getTotalCardsInPlayerHand() {
         for (int i = 0; i < game.getPlayerCount(); i++) {
-            System.out.print(game.getPlayer(i));
-            System.out.println(game.getPlayerHandSize(i));
+            System.out.print(game.getPlayer(i)+"    - ");
+
+            System.out.println(game.getPlayerHandSize(i) + " Cards remaining");
         }
     }
 
     public Player getCurrentPlayer() throws InvalidNumberOfPlayersException {
 
         return game.getPlayerX();
+    }
+
+    public int currentScore() throws InvalidCardException {
+
+        return game.checkScore();
     }
 }
 

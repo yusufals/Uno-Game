@@ -141,34 +141,41 @@ public class ArcadeMachine {
 
         } else if (command.equalsIgnoreCase("start game")) {
             boolean isGameRunning = true;
-            while (isGameRunning) {
+            int score =0;
+            while (score<501) {
 
-                System.out.println("Players in the game " + currentGame.getPlayers());
-                currentGame.getTotalCardsInPlayerHand();
-                System.out.println("Last visible card is " + currentGame.showDiscard());
+                while (isGameRunning) {
+                    score = currentGame.currentScore();
 
-                System.out.println("You are player : " + currentGame.getCurrentPlayer() +
-                        " and your cards are: " + currentGame.showPlayerHand());
+                    System.out.println("Players in the game " + currentGame.getPlayers());
+                    currentGame.getTotalCardsInPlayerHand();
+                    System.out.println("Last visible card is " + currentGame.showDiscard());
 
-                System.out.println("Please select the card number you'd like to play," +
-                        " 0 is the far left, and increments by one");
-                String cardNumber = br.readLine();
-                if (cardNumber.equalsIgnoreCase("exit")) {
-                    isGameRunning = false;
-                } else {
-                    try {
-                        int number = Integer.parseInt(cardNumber);
-                        currentGame.playTurn(number);
-                    } catch (InvalidCardException e) {
-                        System.out.println("Invalid card");
-                    } catch (NoCardRemainingException e) {
-                        e.printStackTrace();
+                    System.out.println("You are: " + currentGame.getCurrentPlayer() +
+                            " and your cards are: " + currentGame.showPlayerHand());
+
+                    System.out.println("Please select the card number you'd like to play," +
+                            " 0 is the far left, and increments by one");
+                    String cardNumber = br.readLine();
+                    if (cardNumber.equalsIgnoreCase("exit")) {
+                        isGameRunning = false;
+                    } else {
+
+                        try {
+                            int number = Integer.parseInt(cardNumber);
+                            currentGame.playTurn(number);
+                        } catch (InvalidCardException e) {
+                            System.out.println("Invalid card");
+                        } catch (NoCardRemainingException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
 
                 }
 
             }
-
         }
 
 
