@@ -54,8 +54,8 @@ public class TestDeck {
         assertEquals(110, newDeck.getNumberOfCards());
     }
 
-    @Test
-    public void loopCardRemoval()throws  NoCardRemainingException {
+    @Test (expected = NoCardRemainingException.class)
+    public void loopCardRemoval() throws NoCardRemainingException {
         UnoDeck newDeck = new UnoDeck();
         for (int cardPosition = newDeck.getNumberOfCards()-1; cardPosition >= 0; cardPosition--) {
             newDeck.takeTopCard();

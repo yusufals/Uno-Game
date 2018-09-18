@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Sarah has worked on this class
+ * Abdullah worked on this class
  */
 public class UnoGame {
     private DiscardPile discardPile;
@@ -17,22 +17,31 @@ public class UnoGame {
     private PlayerStorage playerStorage;
     private int currentPlayer = 0;
     private Card visibleCard;
-    ActionCardRules actionCardRules;
+    Rules rules;
     private CardColour currentColour;
     private CardType currentType;
     private int currentScore;
     private boolean isGameOver = false;
 
+    /**
+     * constructs new UnoGame, UnoDeck, PlayerStorage and shuffles the cards
+     * @throws NoCardRemainingException
+     * @throws OneCardAllowedException
+     */
     public UnoGame() throws NoCardRemainingException, OneCardAllowedException {
         discardPile = new DiscardPile();
         unoDeck = new UnoDeck();
         playerStorage = new PlayerStorage();
         UnoGame currentUnoGame = this;
-        actionCardRules = new ActionCardRules(currentUnoGame);
+        rules = new Rules(currentUnoGame);
         unoDeck.shuffleDeck();
         addFirstCardToDiscardPile();
     }
 
+    /**
+     * Hands 7 cards out to each of the player that has been added to the game
+     * @throws NoCardRemainingException
+     */
     public void giveCardsToPlayers() throws NoCardRemainingException {
         //for each player in the players list
         for (int i = 0; i < players.size(); i++) {
@@ -46,6 +55,11 @@ public class UnoGame {
             players.get(i).addCard(unoDeck.takeTopCard());
         }
     }
+
+    /**
+     * If there was a new player added after the game has started, it lets you hand out more cards
+     * @throws NoCardRemainingException
+     */
     public void giveCardsToNewPlayers() throws NoCardRemainingException {
         for (int i = 0; i < players.size(); i++) {
             if(players.get(i).getNumberOfCards()==0){
@@ -61,7 +75,11 @@ public class UnoGame {
 
     }
 
-
+    /**]
+     * Can remove the player from the game
+     * @throws MaxPlayerReachedException
+     * @throws InvalidNumberOfPlayersException
+     */
     public void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException {
         if (players.size() == 0) {
             throw new InvalidNumberOfPlayersException();
@@ -73,7 +91,7 @@ public class UnoGame {
 
     /**
      * Sarah created this method
-     *
+     *Adds a player to the game
      * @throws MaxPlayerReachedException
      */
     public void addPlayer() throws MaxPlayerReachedException {
@@ -147,6 +165,14 @@ public class UnoGame {
         }
     }
 
+    /**
+     * Allows user to play a card if the conditions are fulfilled
+     * @param cardPosition position as int to play the card in
+     * @return true or false based on if the turn has been played
+     * @throws NoCardRemainingException
+     * @throws InvalidCardException
+     */
+
     public boolean playTurn(int cardPosition) throws NoCardRemainingException, InvalidCardException {
         this.visibleCard = discardPile.showTopCard();
         currentColour = visibleCard.getColour();
@@ -168,7 +194,7 @@ public class UnoGame {
             switchToNextPlayer();
             isCardPlayed = true;
         } else {
-            actionCardRules.pickUpCard();
+            rules.pickUpCard();
             switchToNextPlayer();
         }
         return isCardPlayed;
@@ -191,10 +217,20 @@ public class UnoGame {
     }
 
 
+    /**
+     *
+     * @param index takes an int for position of the player in the array
+     * @return Player in that position
+     */
     public Player getPlayer(int index) {
         return players.get(index);
     }
 
+    /**
+     *
+     * @return Player from the when the size of playerlist is not 0
+     * @throws InvalidNumberOfPlayersException
+     */
     public Player getPlayerX() throws InvalidNumberOfPlayersException {
         if (players.size() == 0) {
             throw new InvalidNumberOfPlayersException();
@@ -202,22 +238,39 @@ public class UnoGame {
             return players.get(currentPlayer);
     }
 
+    /**
+     *
+     * @return list of Players in the game
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * @return Card - which is the top card on the discard pile
+     */
     public Card getTopDiscard() {
         return discardPile.showTopCard();
     }
 
+    /**
+     * @return UnoDeck
+     */
     public UnoDeck getUnoDeck() {
         return unoDeck;
     }
 
+    /**
+     * selected Player position
+     * @return
+     */
     public int getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Switches to next player when a turn has been played
+     */
     public void switchToNextPlayer() {
         if (currentPlayer < (players.size() - 1)) {
             currentPlayer++;
@@ -226,6 +279,11 @@ public class UnoGame {
         }
 
     }
+
+    /**
+     * Allows to change the card type to a different one when its wild
+     * @return returns the new Card
+     */
     protected Card changeType() {
 
         Card blueCard = new Card(CardColour.Blue, CardNumber.Zero);
@@ -247,20 +305,21 @@ public class UnoGame {
 
     }
 
-    public void wildCardRules() throws NoCardRemainingException {
+
+    private void wildCardRules() throws NoCardRemainingException {
         if (visibleCard.getType() == CardNumber.PlusTwo) {
-            actionCardRules.drawTwoCards();
+            rules.drawTwoCards();
             changeType();
             isCardPlayed = true;
         } else if (visibleCard.getType() == CardAction.Wild) {
             changeType();
             isCardPlayed = true;
         } else if (visibleCard.getType() == CardAction.WildFour) {
-            actionCardRules.drawFourCards();
+            rules.drawFourCards();
             changeType();
             isCardPlayed = true;
         } else if (visibleCard.getType() == CardNumber.Skip) {
-            actionCardRules.skipTurn();
+            rules.skipTurn();
             changeType();
             isCardPlayed = true;
         }
@@ -279,6 +338,11 @@ public class UnoGame {
         return isGameOver;
     }
 
+    /**
+     *
+     * @return total score as int of all the players that has not won
+     * @throws InvalidCardException
+     */
     public int checkScore() throws InvalidCardException {
         if (isGameOver()) {
             for (int i = 0; i < players.size(); i++) {
@@ -320,10 +384,10 @@ public class UnoGame {
 
     }
 
-    public int getCurrentScore() {
-        return currentScore;
-    }
-
+    /**
+     * used to add a card to top of the deck
+     * @param card temporary card
+     */
     protected void addTempCardToDiscardPile(Card card) {
         discardPile.placeCardOnFaceUpPile(card);
     }

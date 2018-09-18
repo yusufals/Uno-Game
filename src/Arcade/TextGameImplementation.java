@@ -12,44 +12,77 @@ import java.util.List;
 public class TextGameImplementation implements TextGame {
     UnoGame game;
     private int coins;
-    private boolean startGame=false;
+    private boolean startGame = false;
 
+    /**
+     * The constructor instantiates a new UnoGame object.
+     *
+     * @throws OneCardAllowedException
+     * @throws NoCardRemainingException
+     */
     public TextGameImplementation() throws OneCardAllowedException, NoCardRemainingException {
 
         game = new UnoGame();
     }
 
-
+    /**
+     * @returns the method provides the games name - Uno Game.
+     */
     public String getGameName() {
 
         return "Uno Game";
     }
 
+    /**
+     * This method allows the user to insert a coin.
+     */
     public void insertCoin() {
         coins++;
     }
 
+    /**
+     * This method hands 7 cards out to each player when there is more than one player.
+     *
+     * @throws InvalidNumberOfPlayersException
+     * @throws NoCardRemainingException
+     */
     public void startGame() throws InvalidNumberOfPlayersException, NoCardRemainingException {
         if (game.getPlayerCount() < 2) {
             throw new InvalidNumberOfPlayersException();
         } else {
             game.giveCardsToPlayers();
-         startGame=true;
+            startGame = true;
         }
 
     }
 
+    /**
+     * This method lets you add another player after the game has started.
+     *
+     * @throws NoCardRemainingException
+     */
     public void giveCardsToNewPlayer() throws NoCardRemainingException {
         game.giveCardsToNewPlayers();
     }
 
-    public boolean getStartGame(){
+    /**
+     * The method returns whether the boolean field.
+     *
+     * @return
+     */
+    public boolean getStartGame() {
         return startGame;
     }
 
-
+    /**
+     * This method calls out UNO when any player has one card in their hand.
+     */
     public void endGame() {
-
+        for (int i = 0; i < game.getPlayerCount(); i++) {
+            if (game.getPlayerHandSize(i) == 1) {
+                System.out.println("UNO");
+            }
+        }
     }
 
     public void playTurn(int cardToPlay) throws NoCardRemainingException, InvalidCardException {
@@ -85,9 +118,10 @@ public class TextGameImplementation implements TextGame {
         return game.getPlayers();
     }
 
-    public String getScoreboard() {
+    public String getScoreboard() throws InvalidCardException {
         //Add the scores from the remaining cards of the players
-        return "Final score";
+        currentScore();
+        return "Final score" + currentScore();
     }
 
     public String getHelp() {
@@ -113,7 +147,7 @@ public class TextGameImplementation implements TextGame {
 
     public void getTotalCardsInPlayerHand() {
         for (int i = 0; i < game.getPlayerCount(); i++) {
-            System.out.print(game.getPlayer(i)+"    - ");
+            System.out.print(game.getPlayer(i) + "    - ");
 
             System.out.println(game.getPlayerHandSize(i) + " Cards remaining");
         }

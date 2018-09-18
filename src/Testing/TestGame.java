@@ -94,7 +94,7 @@ public class TestGame {
 
     }
 
-    @Test //(expected = OneCardAllowedException.class)
+    @Test (expected = OneCardAllowedException.class)
     public void oneCardInBeginningOfGame () throws OneCardAllowedException, NoCardRemainingException {
         UnoGame game= new UnoGame();
         game.addFirstCardToDiscardPile();

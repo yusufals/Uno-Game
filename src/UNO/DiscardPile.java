@@ -15,8 +15,8 @@ public class DiscardPile {
     }
 
     /**
-     * Marin
-     * @return
+     * Marin created this method. The method gets the total number of cards in the discard pile.
+     * @returns the number of cards in discard pile
      */
     public int totalInTheFaceUpPile() {
         return discardPile.size();
@@ -24,7 +24,7 @@ public class DiscardPile {
     }
 
 
-    /**Abdullah
+    /**Abdullah created this method. The method
      *
      * @param card
      */
@@ -33,16 +33,16 @@ public class DiscardPile {
     }
 
     /**
-     * Abdullah
-     * @return
+     * Abdullah created this method.
+     * @returns a list of cards from the discard pile
      */
     public List<Card> viewDiscardPile() {
         return discardPile;
     }
 
     /**
-     * Sarah
-     * @return
+     * Sarah created this method.
+     * @returns the card at the last position on the array of the discard pile.
      */
     public Card showTopCard() {
         int topCard = discardPile.size() - 1;
@@ -50,8 +50,8 @@ public class DiscardPile {
     }
 
     /**
-     * Marin
-     * @return
+     * Sarah created this method.
+     * @returns the initial card in the faceUp pile/ discard pile
      */
     public Card getBottomCard() {
         return discardPile.remove(0);

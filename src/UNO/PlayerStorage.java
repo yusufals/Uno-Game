@@ -12,7 +12,9 @@ public class PlayerStorage {
 
     private List<Player> playerDatabase = new ArrayList<Player>();
 
-
+    /**
+     * The constructor instantiates the players with their names.
+     */
     public PlayerStorage() {
 
         Player player1 = new Player("Player One");
@@ -40,13 +42,21 @@ public class PlayerStorage {
 
     }
 
-
+    /**
+     *
+     * @returns the first player from the list
+     */
     public Player getFirstPlayer() {
         Player x = playerDatabase.get(0);
         playerDatabase.remove(0);
         return x;
     }
 
+    /**
+     * This method removes a player from the list .
+     * @param player player to be removed
+     * @throws MaxPlayerReachedException
+     */
     public void removePlayerFromGame(Player player)throws MaxPlayerReachedException{
         if(playerDatabase.size()>10){
             throw new MaxPlayerReachedException();
@@ -54,6 +64,11 @@ public class PlayerStorage {
         playerDatabase.add(player);
 
     }
+
+    /**
+     * This method shows the size of the total number of players in the list.
+     * @return
+     */
 
     public int getSizeOfDatabase() {
         return playerDatabase.size();

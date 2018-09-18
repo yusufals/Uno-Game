@@ -22,7 +22,11 @@ public class ArcadeMachine {
     private Map<String, UnoGame> availableGames;
     private TextGame currentGame;
 
-
+    /**
+     * The constructor instantiates a new TextGameImplementation and it instantiates a HashMap for the available games in the arcade.
+     * @throws NoCardRemainingException
+     * @throws OneCardAllowedException
+     */
     public ArcadeMachine() throws NoCardRemainingException, OneCardAllowedException {
         currentGame = new TextGameImplementation();
         this.availableGames = new HashMap<>();
@@ -45,7 +49,7 @@ public class ArcadeMachine {
      * @throws IOException
      */
     public void run() throws IOException, InvalidCardException, MaxPlayerReachedException, NoCardRemainingException {
-
+        // Sarah added graphics as text interface.
         System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
         while (true) {
@@ -154,7 +158,7 @@ public class ArcadeMachine {
         } else if (command.equalsIgnoreCase("start game")) {
             if (currentGame.getStartGame() == true) {
 
-
+                //This code below only runs when the score is below 500,
                 boolean isGameRunning = true;
                 int score = 0;
                 while (score < 501) {
@@ -182,7 +186,9 @@ public class ArcadeMachine {
 
                             try {
                                 int number = Integer.parseInt(cardNumber);
+                                currentGame.endGame();
                                 currentGame.playTurn(number);
+
                             } catch (InvalidCardException e) {
                                 System.out.println("Invalid Card");
                             } catch (NumberFormatException e) {

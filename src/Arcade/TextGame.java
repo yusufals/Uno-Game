@@ -36,7 +36,7 @@ public interface TextGame {
     void giveCardsToNewPlayer() throws NoCardRemainingException;
     boolean getStartGame();
 
-    String getScoreboard();
+    String getScoreboard() throws InvalidCardException;
     Card showDiscard();
     String getHelp();
     List<Card> showPlayerHand();
