@@ -22,6 +22,7 @@ public class ArcadeMachine {
     private Map<String, UnoGame> availableGames;
     private TextGame currentGame;
 
+
     public ArcadeMachine() throws NoCardRemainingException, OneCardAllowedException {
         currentGame = new TextGameImplementation();
         this.availableGames = new HashMap<>();
@@ -48,10 +49,19 @@ public class ArcadeMachine {
         System.out.println("Welcome to Sarah, Abdullah and Marin's Arcade!");
 
         while (true) {
+            System.out.println("                                     _____          				");
+            System.out.println("         _____                _____ |6    |							");
+            System.out.println("        |2    | _____        |5    || blue|							");
+            System.out.println("        | uno ||3    | _____ | red ||     | _____					");
+            System.out.println("        |     || uno ||4    ||     ||     ||7    |					");
+            System.out.println("        |wild ||     || uno ||     ||____9||     | _____			");
+            System.out.println("        |____Z|| red ||     ||____S|       |     ||8    | _____		");
+            System.out.println("               |____E||blue |              |     ||     ||9    |	");
+            System.out.println("                      |____h|              |____L||     ||     |	");
+            System.out.println("                                                  |uno  ||     |	");
+            System.out.println("                         			              |____8||uno  |	");
+            System.out.println("                  						                 |____6|	");
             System.out.println("Please type: 'Arcade help' to get help");
-            System.out.println("");
-            System.out.println("------");
-            System.out.println("Game status: " + getStatus());
             System.out.print(">>> ");
 
             String commandString = br.readLine();
@@ -123,62 +133,77 @@ public class ArcadeMachine {
      * @throws InvalidNumberOfPlayersException
      */
     private void runCommand(String command) throws InvalidCommandException, InsufficientFundsException, InvalidNumberOfPlayersException, IOException, InvalidCardException, NoCardRemainingException, MaxPlayerReachedException {
-        if (command.equals("arcade help")) {
+        if (command.equalsIgnoreCase("arcade help")) {
             // Arcade help message.
             printArcadeHelpMessage();
-        } else if (command.equals(("insert coin"))) {
+        } else if (command.equalsIgnoreCase(("insert coin"))) {
             currentGame.insertCoin();
             System.out.println("one coin has been inserted");
             System.out.println("currently you have: " + currentGame.getCoins() + " coins");
-        } else if (command.equals("add player")) {
+        } else if (command.equalsIgnoreCase("add player")) {
             currentGame.addPlayer();
             System.out.println("There are currently:  " + currentGame.getPlayers() + "players in the game");
-        } else if (command.equals("remove player")) {
+        } else if (command.equalsIgnoreCase("remove player")) {
             currentGame.removePlayer();
-        } else if (command.equals("setup game")) {
+        } else if (command.equalsIgnoreCase("setup game") ||
+                command.equalsIgnoreCase("set up game")) {
 
             currentGame.startGame();
-
+            System.out.println("Cards have been handed out to the players, please start game");
+            currentGame.getTotalCardsInPlayerHand();
         } else if (command.equalsIgnoreCase("start game")) {
-            boolean isGameRunning = true;
-            int score =0;
-            while (score<501) {
+            if (currentGame.getStartGame() == true) {
 
-                while (isGameRunning) {
-                    score = currentGame.currentScore();
 
-                    System.out.println("Players in the game " + currentGame.getPlayers());
-                    currentGame.getTotalCardsInPlayerHand();
-                    System.out.println("Last visible card is " + currentGame.showDiscard());
+                boolean isGameRunning = true;
+                int score = 0;
+                while (score < 501) {
 
-                    System.out.println("You are: " + currentGame.getCurrentPlayer() +
-                            " and your cards are: " + currentGame.showPlayerHand());
+                    while (isGameRunning) {
+                        score = currentGame.currentScore();
 
-                    System.out.println("Please select the card number you'd like to play," +
-                            " 0 is the far left, and increments by one");
-                    String cardNumber = br.readLine();
-                    if (cardNumber.equalsIgnoreCase("exit")) {
-                        isGameRunning = false;
-                    } else {
+                        System.out.println("Players in the game " + currentGame.getPlayers());
+                        currentGame.getTotalCardsInPlayerHand();
+                        System.out.println("Last visible card is " + currentGame.showDiscard());
 
-                        try {
-                            int number = Integer.parseInt(cardNumber);
-                            currentGame.playTurn(number);
-                        } catch (InvalidCardException e) {
-                            System.out.println("Invalid card");
-                        } catch (NoCardRemainingException e) {
-                            e.printStackTrace();
+                        System.out.println("You are: " + currentGame.getCurrentPlayer() +
+                                " and your cards are: " + currentGame.showPlayerHand());
+
+                        System.out.println("Please select the card number you'd like to play," +
+                                " 0 is the far left, and increments by one");
+                        String cardNumber = br.readLine();
+                        if (cardNumber.equalsIgnoreCase("exit")) {
+                            isGameRunning = false;
+                        } else if (cardNumber.equalsIgnoreCase("Add player")){
+                            currentGame.addPlayer();
+                            currentGame.giveCardsToNewPlayer();
+
+                        }else {
+
+                            try {
+                                int number = Integer.parseInt(cardNumber);
+                                currentGame.playTurn(number);
+                            } catch (InvalidCardException e) {
+                                System.out.println("Invalid Card");
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid Input");
+                            } catch (NoCardRemainingException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
-
 
                     }
 
                 }
-
             }
+
+            else{
+                System.out.println("You need to setup game before starting the game. ");
+            }
+
         }
-
-
     }
 }
 

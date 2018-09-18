@@ -33,6 +33,8 @@ public interface TextGame {
     void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException;
 
     List<Player> getPlayers();
+    void giveCardsToNewPlayer() throws NoCardRemainingException;
+    boolean getStartGame();
 
     String getScoreboard();
     Card showDiscard();

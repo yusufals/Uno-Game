@@ -46,6 +46,20 @@ public class UnoGame {
             players.get(i).addCard(unoDeck.takeTopCard());
         }
     }
+    public void giveCardsToNewPlayers() throws NoCardRemainingException {
+        for (int i = 0; i < players.size(); i++) {
+            if(players.get(i).getNumberOfCards()==0){
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+                players.get(i).addCard(unoDeck.takeTopCard());
+            }
+        }
+
+    }
 
 
     public void removePlayer() throws MaxPlayerReachedException, InvalidNumberOfPlayersException {
@@ -70,6 +84,7 @@ public class UnoGame {
         }
         players.add(playerStorage.getFirstPlayer());
     }
+
 
     /**
      * Sarah created this method. This returns the total number of players from the players list

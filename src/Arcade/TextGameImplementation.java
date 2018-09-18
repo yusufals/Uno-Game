@@ -12,6 +12,7 @@ import java.util.List;
 public class TextGameImplementation implements TextGame {
     UnoGame game;
     private int coins;
+    private boolean startGame=false;
 
     public TextGameImplementation() throws OneCardAllowedException, NoCardRemainingException {
 
@@ -33,8 +34,19 @@ public class TextGameImplementation implements TextGame {
             throw new InvalidNumberOfPlayersException();
         } else {
             game.giveCardsToPlayers();
+         startGame=true;
         }
+
     }
+
+    public void giveCardsToNewPlayer() throws NoCardRemainingException {
+        game.giveCardsToNewPlayers();
+    }
+
+    public boolean getStartGame(){
+        return startGame;
+    }
+
 
     public void endGame() {
 
