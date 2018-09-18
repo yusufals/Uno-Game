@@ -109,13 +109,7 @@ public class ArcadeMachine {
             System.out.println("  - " + gameName);
         }
 
-        System.out.println("");
-        System.out.println("Game Commands: ");
-        if (currentGame != null) {
-            System.out.println(currentGame.getHelp());
-        } else {
-            System.out.println("No game selected. Select a game for game-specific commands.");
-        }
+
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class TextGameImplementation implements TextGame {
-    UnoGame game;
+    private UnoGame game;
     private int coins;
     private boolean startGame = false;
 
